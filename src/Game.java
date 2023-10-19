@@ -26,6 +26,7 @@ public class Game {
             if (posPlayer == 63) {
                 System.out.println("OMG t'as fini");
             }
+
         }
         System.out.println("Normalement tout va bien (je crois)");
     }

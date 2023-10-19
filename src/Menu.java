@@ -1,10 +1,14 @@
+import fr.lecampusnumerique.personnages.Guerrier;
+import fr.lecampusnumerique.personnages.Magicien;
+import fr.lecampusnumerique.personnages.Personnage;
 import java.util.Scanner;
 
 public class Menu {
-    Character player;
+    Personnage player;
     Game newGame;
     boolean exitStartMenu = false;
     boolean exitSousMenu = false;
+    Scanner eventUser = new Scanner(System.in);
 
     public Menu() {
 
@@ -12,7 +16,6 @@ public class Menu {
 
     public void start() {
         displayBanner();
-        // Start Menu
         displayStartMenu();
         while (!exitStartMenu) {
             if (getUserChoice() == 1) {
@@ -24,7 +27,7 @@ public class Menu {
                         player.displayStats();
                     }
                     if (choice == 2) {
-                        player.modifyStats();
+                        updatePlayer();
                     }
                     if (choice == 3) {
                         exitSousMenu = true;
@@ -40,25 +43,52 @@ public class Menu {
         }
     }
 
-    public Character createNewPlayer() {
-        Scanner eventUser = new Scanner(System.in);
+    public Personnage createNewPlayer() {
+        // récupération des entrées user
         System.out.println("Entrez le nom du personnage : ");
         String pName = eventUser.nextLine();
         System.out.println("Entrez la classe : ");
         String pType = eventUser.nextLine();
-        Character player = new Character(pName, pType);
-        System.out.println("Personnage créé");
-        return player;
+        // création perso en fonction du type
+        if (pType.equalsIgnoreCase("guerrier")) {
+            Guerrier player = new Guerrier(pName);
+            System.out.println("Personnage créé");
+            return player;
+        } else {
+            Magicien player = new Magicien(pName);
+            System.out.println("Personnage créé");
+            return player;
+        }
+    }
+
+    public Personnage updatePlayer() {
+        System.out.println("Modifier nom : ");
+        String newName = eventUser.nextLine();
+        System.out.println("Modifier type : ");
+        String newType = eventUser.nextLine();
+        if (newType.equalsIgnoreCase("guerrier")) {
+            System.out.println("Personnage modifié");
+            return player = new Guerrier(newName);
+
+        } else {
+            System.out.println("Personnage modifié");
+            return player = new Magicien(newName);
+        }
     }
 
     public int getUserChoice() {
         Scanner newEventUser = new Scanner(System.in);
-        int userChoice = newEventUser.nextInt();
-        return userChoice;
+        return newEventUser.nextInt();
     }
 
     public void displayBanner() {
-        System.out.println("--------------------- BIENVENUE DANS DONJONS & DRAGONS ---------------------");
+        System.out.println("----------------------------------------------------------------------------");
+        System.out.println("--                                                                        --");
+        System.out.println("--                                                                        --");
+        System.out.println("--                    BIENVENUE DANS DONJONS & DRAGONS                    --");
+        System.out.println("--                                                                        --");
+        System.out.println("--                                                                        --");
+        System.out.println("----------------------------------------------------------------------------");
     }
 
     public void displayStartMenu() {
