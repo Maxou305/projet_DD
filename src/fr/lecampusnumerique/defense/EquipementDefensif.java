@@ -13,7 +13,7 @@ public abstract class EquipementDefensif {
                 "\nValeur : " + value;
     }
 
-    // -------------------------------------- GETTERS & SETTERS--------------------------------------
+    // ----- GETTERS & SETTERS ------------------------------------------------------------------------------------
 
     public String getDefensiveType() {
         return defensiveType;

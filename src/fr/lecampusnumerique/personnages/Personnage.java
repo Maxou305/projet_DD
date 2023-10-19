@@ -12,20 +12,12 @@ public abstract class Personnage {
     private EquipementDefensif defensive;
 
 
-    private Personnage updatePlayer(String pName, String pType) {
-        if (pType.equalsIgnoreCase("guerrier")) {
-            Personnage player = new Guerrier(pName);
-            return player;
-        } else {
-            Personnage player = new Magicien(pName);
-            return player;
-        }
-    }
-    public void displayStats(){
+    public void displayStats() {
         System.out.println(this);
     }
 
-    // -------------------------------------- GETTERS & SETTERS--------------------------------------
+    // ----- GETTERS & SETTERS ------------------------------------------------------------------------------------
+
     public String getName() {
         return name;
     }
@@ -41,6 +33,7 @@ public abstract class Personnage {
     public void setType(String type) {
         this.type = type;
     }
+
     public int getLife() {
         return life;
     }
@@ -56,6 +49,7 @@ public abstract class Personnage {
     public void setStrength(int strength) {
         this.strength = strength;
     }
+
     public EquipementOffensif getOffensive() {
         return offensive;
     }

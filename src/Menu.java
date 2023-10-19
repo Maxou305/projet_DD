@@ -61,6 +61,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Cette méthode va créer et ECRASER le player déjà créé.
+     * @return
+     */
     public Personnage updatePlayer() {
         System.out.println("Modifier nom : ");
         String newName = eventUser.nextLine();
@@ -76,11 +80,15 @@ public class Menu {
         }
     }
 
+    /**
+     * Permet de récupérer le choix du joueur dans le menu (int uniquement)
+     * @return
+     */
     public int getUserChoice() {
         Scanner newEventUser = new Scanner(System.in);
         return newEventUser.nextInt();
     }
-
+    // ----- PARTIE GRAPHIQUE ------------------------------------------------------------------------------------
     public void displayBanner() {
         System.out.println("----------------------------------------------------------------------------");
         System.out.println("--                                                                        --");
@@ -100,6 +108,11 @@ public class Menu {
         System.out.println("Que voulez-vous faire ?\n1 - Afficher les infos du joueur\n2 - Modifier les infos du joueur\n3 - Commencer la partie\n4 - Retour au menu principal");
     }
 
+    // -------------------------------------- AUTRE --------------------------------------
+
+    /**
+     * Méthode utilisée pour quitter la boucle dans le menu principal
+     */
     public void quit() {
         exitStartMenu = true;
     }

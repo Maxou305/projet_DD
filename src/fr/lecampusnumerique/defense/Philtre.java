@@ -7,5 +7,3 @@ public class Philtre extends EquipementDefensif {
         setName("Miroir miroir");
     }
 }
-
-
