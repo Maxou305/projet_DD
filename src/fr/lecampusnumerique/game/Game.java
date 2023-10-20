@@ -1,12 +1,18 @@
-import java.lang.reflect.GenericDeclaration;
-import java.util.Scanner;
+package fr.lecampusnumerique.game;
+
+import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
+import fr.lecampusnumerique.game.ennemis.Dragon;
+import fr.lecampusnumerique.game.potions.PopoBig;
+import fr.lecampusnumerique.offense.guerrier.Epee;
+
+import java.util.ArrayList;
 
 public class Game {
-    private int plateau[];
+    private ArrayList<Frame> plateau;
     private int posPlayer;
 
     public Game() {
-        plateau = new int[64];
+        plateau = new ArrayList<Frame>();
         posPlayer = 0;
         initPlateau();
     }
@@ -17,12 +23,13 @@ public class Game {
     }
 
     /**
-     * Permet d'initialiser un tableau rempli de 64 int, de 0 à 63.
+     * Permet d'initialiser un tableau avec les ArrayList
      */
     public void initPlateau() {
-        for (int i = 0; i < plateau.length; i++) {
-            plateau[i] = i;
-        }
+        plateau.add(new FrameVide());
+        plateau.add(new Dragon());
+        plateau.add(new Epee());
+        plateau.add(new PopoBig());
     }
 
     // ----- GESTION PLAYER ------------------------------------------------------------------------------------
@@ -55,16 +62,17 @@ public class Game {
 //    }
 
     public void movePlayer() throws PersonnageHorsPlateauException {
-        while (posPlayer < 63) {
-            int resultat = jetDados();
-            posPlayer += resultat;
+        while (posPlayer < 4) {
+//            int resultat = jetDados();
+            posPlayer += 1;
             if (posPlayer > 63) {
                 throw new PersonnageHorsPlateauException();
             }
             if (posPlayer == 63) {
                 System.out.println("OMG t'as fini");
             }
-            System.out.println("Vous avez fait " + resultat + " et avancé à sur la case " + posPlayer);
+            System.out.println("Vous avez fait " + 1 + " et avancé à sur la case " + posPlayer);
+            plateau.get(posPlayer-1).interact();
         }
         System.out.println("Normalement tout va bien (je crois)");
     }

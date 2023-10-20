@@ -1,3 +1,6 @@
+package fr.lecampusnumerique.main;
+
+import fr.lecampusnumerique.game.Game;
 import fr.lecampusnumerique.personnages.Guerrier;
 import fr.lecampusnumerique.personnages.Magicien;
 import fr.lecampusnumerique.personnages.Personnage;

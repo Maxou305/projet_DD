@@ -1,9 +1,10 @@
-package fr.lecampusnumerique.offense;
+package fr.lecampusnumerique.offense.magicien;
 
-public class Sort extends EquipementOffensif {
+import fr.lecampusnumerique.offense.EquipementOffensif;
+
+public abstract class Sort extends EquipementOffensif {
     public Sort(String pName) {
         super(pName);
-        setValue(4);
     }
     public Sort(){
         this("Popo magique"); // this() permet d'appeler le constructeur de base !

@@ -2,6 +2,7 @@ package fr.lecampusnumerique.personnages;
 
 import fr.lecampusnumerique.defense.EquipementDefensif;
 import fr.lecampusnumerique.offense.EquipementOffensif;
+import fr.lecampusnumerique.game.ennemis.Ennemi;
 
 public abstract class Personnage {
     private String name;
@@ -12,6 +13,22 @@ public abstract class Personnage {
 
     protected Personnage(String pName) {
         name = pName;
+    }
+
+    // ----- METHODES ------------------------------------------------------------------------------------
+    public void heal(int healing) {
+        life = life + healing;
+    }
+
+    public void attack(Ennemi ennemi) {
+        ennemi.setLife(ennemi.getLife() - (strength + offensive.getValue()));
+    }
+
+    public void damaged(Ennemi ennemi) {
+        int damages = ennemi.getAttack() - defensive.getValue();
+        if (damages > 0) {
+            life -= damages;
+        }
     }
 
     public void displayStats() {
@@ -29,10 +46,6 @@ public abstract class Personnage {
     }
 
     public abstract String getType();
-//
-//    public void setType(String type) {
-//        this.type = type;
-//    }
 
     public int getLife() {
         return life;

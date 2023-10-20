@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>fr.lecampusnumerique.defense.Bouclier</OriginalElement>
+  <nodes>
+    <node x="140.68333333333328" y="-105.0">fr.lecampusnumerique.offense.EquipementOffensif</node>
+    <node x="566.25" y="322.5">PersonnageHorsPlateauException</node>
+    <node x="-186.0" y="298.0">fr.lecampusnumerique.defense.Bouclier</node>
+    <node x="-350.0" y="298.0">fr.lecampusnumerique.defense.Philtre</node>
+    <node x="128.0" y="298.0">fr.lecampusnumerique.offense.Arme</node>
+    <node x="270.9472222222222" y="1192.0">Main</node>
+    <node x="643.25" y="615.0">Game</node>
+    <node x="-69.69166666666672" y="651.0">fr.lecampusnumerique.personnages.Magicien</node>
+    <node x="-148.56666666666672" y="-105.0">fr.lecampusnumerique.defense.EquipementDefensif</node>
+    <node x="-17.0" y="298.0">fr.lecampusnumerique.offense.Sort</node>
+    <node x="105.30833333333328" y="651.0">fr.lecampusnumerique.personnages.Guerrier</node>
+    <node x="230.9472222222222" y="837.0">Menu</node>
+    <node x="304.25" y="165.0">fr.lecampusnumerique.personnages.Personnage</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="fr.lecampusnumerique.defense.Philtre" target="fr.lecampusnumerique.defense.EquipementDefensif" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="-280.5" y="202.0" />
+      <point x="-35.067" y="202.0" />
+      <point x="-3.3333333328045E-4" y="105.0" />
+    </edge>
+    <edge source="fr.lecampusnumerique.personnages.Magicien" target="fr.lecampusnumerique.offense.Sort" relationship="CREATE">
+      <point x="-15.00033333333328" y="-44.0" />
+      <point x="-52.692" y="56.0" />
+    </edge>
+    <edge source="fr.lecampusnumerique.personnages.Personnage" target="fr.lecampusnumerique.defense.EquipementDefensif" relationship="TO_ONE">
+      <point x="0.0" y="-189.0" />
+      <point x="425.25" y="-122.5" />
+      <point x="-35.06666666666672" y="-122.5" />
+      <point x="0.0" y="-105.0" />
+    </edge>
+    <edge source="fr.lecampusnumerique.personnages.Guerrier" target="fr.lecampusnumerique.offense.Arme" relationship="CREATE">
+      <point x="13.19166666666672" y="-44.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="fr.lecampusnumerique.personnages.Magicien" target="fr.lecampusnumerique.defense.Philtre" relationship="CREATE">
+      <point x="-77.5" y="0.0" />
+      <point x="-280.5" y="695.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="fr.lecampusnumerique.defense.Bouclier" target="fr.lecampusnumerique.defense.EquipementDefensif" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="-111.5" y="202.0" />
+      <point x="-35.067" y="202.0" />
+      <point x="-3.3333333328045E-4" y="105.0" />
+    </edge>
+    <edge source="fr.lecampusnumerique.offense.Sort" target="fr.lecampusnumerique.offense.EquipementOffensif" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="45.5" y="250.0" />
+      <point x="253.183" y="250.0" />
+      <point x="-3.3333333328755543E-4" y="105.0" />
+    </edge>
+    <edge source="Menu" target="fr.lecampusnumerique.personnages.Magicien" relationship="CREATE">
+      <point x="-122.0" y="0.0" />
+      <point x="7.80833333333328" y="989.5" />
+      <point x="0.0" y="44.0" />
+    </edge>
+    <edge source="fr.lecampusnumerique.personnages.Personnage" target="fr.lecampusnumerique.offense.EquipementOffensif" relationship="TO_ONE">
+      <point x="-113.5" y="-189.0" />
+      <point x="58.56666666666672" y="105.0" />
+    </edge>
+    <edge source="fr.lecampusnumerique.offense.Arme" target="fr.lecampusnumerique.offense.EquipementOffensif" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.0" />
+      <point x="194.0" y="250.0" />
+      <point x="253.183" y="250.0" />
+      <point x="-3.3333333328755543E-4" y="105.0" />
+    </edge>
+    <edge source="Menu" target="Game" relationship="TO_ONE">
+      <point x="122.0" y="15.0" />
+      <point x="738.25" y="1004.5" />
+      <point x="15.0" y="80.0" />
+    </edge>
+    <edge source="Menu" target="fr.lecampusnumerique.personnages.Personnage" relationship="TO_ONE">
+      <point x="72.3027777777778" y="-152.5" />
+      <point x="0.0" y="189.0" />
+    </edge>
+    <edge source="Menu" target="Game" relationship="CREATE">
+      <point x="122.0" y="0.0" />
+      <point x="723.25" y="989.5" />
+      <point x="0.0" y="80.0" />
+    </edge>
+    <edge source="fr.lecampusnumerique.personnages.Magicien" target="fr.lecampusnumerique.personnages.Personnage" relationship="GENERALIZATION">
+      <point x="-3.3333333328045E-4" y="-44.0" />
+      <point x="7.808" y="452.0" />
+      <point x="283.0" y="452.0" />
+      <point x="283.0" y="354.0" />
+      <point x="-121.0" y="0.0" />
+    </edge>
+    <edge source="Main" target="Menu" relationship="CREATE">
+      <point x="0.0" y="-44.0" />
+      <point x="0.0" y="152.5" />
+    </edge>
+    <edge source="Game" target="PersonnageHorsPlateauException" relationship="CREATE">
+      <point x="0.0" y="-80.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="fr.lecampusnumerique.personnages.Guerrier" target="fr.lecampusnumerique.defense.Bouclier" relationship="CREATE">
+      <point x="-1.8083333333332803" y="-44.0" />
+      <point x="179.0" y="497.0" />
+      <point x="-111.5" y="497.0" />
+      <point x="0.0" y="56.0" />
+    </edge>
+    <edge source="Menu" target="fr.lecampusnumerique.personnages.Guerrier" relationship="CREATE">
+      <point x="-114.5" y="-152.5" />
+      <point x="57.638888888888914" y="44.0" />
+    </edge>
+    <edge source="fr.lecampusnumerique.personnages.Guerrier" target="fr.lecampusnumerique.personnages.Personnage" relationship="GENERALIZATION">
+      <point x="75.49966666666671" y="0.0" />
+      <point x="283.0" y="695.0" />
+      <point x="283.0" y="354.0" />
+      <point x="-121.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6261419536191145" showDependencies="true" x="275.5" y="588.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
