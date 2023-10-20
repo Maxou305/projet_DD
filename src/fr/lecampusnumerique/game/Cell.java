@@ -1,6 +1,6 @@
 package fr.lecampusnumerique.game;
 
-public interface Frame {
+public interface Cell {
     public void interact();
 
 }

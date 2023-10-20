@@ -1,8 +1,8 @@
 package fr.lecampusnumerique.game.potions;
 
-import fr.lecampusnumerique.game.Frame;
+import fr.lecampusnumerique.game.Cell;
 
-public abstract class Potion implements Frame {
+public abstract class Potion implements Cell {
     int heal;
 
     public Potion(int pHeal) {

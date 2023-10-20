@@ -1,8 +1,6 @@
 package fr.lecampusnumerique.game;
 
-import fr.lecampusnumerique.game.Frame;
-
-public class FrameVide implements Frame {
+public class CellVide implements Cell {
 
     @Override
     public void interact() {

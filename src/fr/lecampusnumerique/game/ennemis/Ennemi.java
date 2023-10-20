@@ -1,9 +1,9 @@
 package fr.lecampusnumerique.game.ennemis;
 
-import fr.lecampusnumerique.game.Frame;
+import fr.lecampusnumerique.game.Cell;
 
 
-public abstract class Ennemi implements Frame {
+public abstract class Ennemi implements Cell {
     private int life;
     private int attack;
     private String name;

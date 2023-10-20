@@ -8,11 +8,11 @@ import fr.lecampusnumerique.offense.guerrier.Epee;
 import java.util.ArrayList;
 
 public class Game {
-    private ArrayList<Frame> plateau;
+    private ArrayList<Cell> plateau;
     private int posPlayer;
 
     public Game() {
-        plateau = new ArrayList<Frame>();
+        plateau = new ArrayList<Cell>();
         posPlayer = 0;
         initPlateau();
     }
@@ -26,7 +26,7 @@ public class Game {
      * Permet d'initialiser un tableau avec les ArrayList
      */
     public void initPlateau() {
-        plateau.add(new FrameVide());
+        plateau.add(new CellVide());
         plateau.add(new Dragon());
         plateau.add(new Epee());
         plateau.add(new PopoBig());

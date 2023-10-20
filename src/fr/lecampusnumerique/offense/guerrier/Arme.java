@@ -1,9 +1,9 @@
 package fr.lecampusnumerique.offense.guerrier;
 
-import fr.lecampusnumerique.game.Frame;
+import fr.lecampusnumerique.game.Cell;
 import fr.lecampusnumerique.offense.EquipementOffensif;
 
-public abstract class Arme extends EquipementOffensif implements Frame {
+public abstract class Arme extends EquipementOffensif implements Cell {
     public Arme(String pName) {
         super(pName);
     }
