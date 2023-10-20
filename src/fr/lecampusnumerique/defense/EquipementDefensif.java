@@ -1,27 +1,24 @@
 package fr.lecampusnumerique.defense;
 
 public abstract class EquipementDefensif {
-    private String defensiveType;
     private int value;
     private String name;
+
+    protected EquipementDefensif(String pName) {
+        name = pName;
+    }
+
+    public abstract String getType();
 
     @Override
     public String toString() {
         return "-----" +
                 "\nNom : " + name +
-                "\nType : " + defensiveType +
+                "\nType : " + getType() +
                 "\nValeur : " + value;
     }
 
     // ----- GETTERS & SETTERS ------------------------------------------------------------------------------------
-
-    public String getDefensiveType() {
-        return defensiveType;
-    }
-
-    public void setDefensiveType(String defensiveType) {
-        this.defensiveType = defensiveType;
-    }
 
     public int getValue() {
         return value;

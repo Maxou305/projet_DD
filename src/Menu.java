@@ -51,11 +51,11 @@ public class Menu {
         String pType = eventUser.nextLine();
         // création perso en fonction du type
         if (pType.equalsIgnoreCase("guerrier")) {
-            Guerrier player = new Guerrier(pName);
+            player = new Guerrier(pName);
             System.out.println("Personnage créé");
             return player;
         } else {
-            Magicien player = new Magicien(pName);
+            player = new Magicien(pName);
             System.out.println("Personnage créé");
             return player;
         }
@@ -63,7 +63,6 @@ public class Menu {
 
     /**
      * Cette méthode va créer et ECRASER le player déjà créé.
-     * @return
      */
     public Personnage updatePlayer() {
         System.out.println("Modifier nom : ");

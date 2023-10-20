@@ -5,12 +5,14 @@ import fr.lecampusnumerique.offense.EquipementOffensif;
 
 public abstract class Personnage {
     private String name;
-    private String type;
     private int life;
     private int strength;
     private EquipementOffensif offensive;
     private EquipementDefensif defensive;
 
+    protected Personnage(String pName) {
+        name = pName;
+    }
 
     public void displayStats() {
         System.out.println(this);
@@ -26,13 +28,11 @@ public abstract class Personnage {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    public abstract String getType();
+//
+//    public void setType(String type) {
+//        this.type = type;
+//    }
 
     public int getLife() {
         return life;
@@ -70,7 +70,7 @@ public abstract class Personnage {
     public String toString() {
         return "----- FICHE DU PERSO -----" +
                 "\nNom : " + name +
-                "\nClasse : " + type +
+                "\nClasse : " + getType() +
                 "\nHP : " + life +
                 "\nForce : " + strength +
                 "\nOffensive : " + offensive +
