@@ -10,13 +10,6 @@ public abstract class EquipementDefensif {
 
     public abstract String getType();
 
-    @Override
-    public String toString() {
-        return "-----" +
-                "\nNom : " + name +
-                "\nType : " + getType() +
-                "\nValeur : " + value;
-    }
 
     // ----- GETTERS & SETTERS ------------------------------------------------------------------------------------
 
@@ -34,5 +27,13 @@ public abstract class EquipementDefensif {
 
     public void setName(String name) {
         this.name = name;
+    }
+    @Override
+    public String toString() {
+        return  "----- FICHE DU SHIELD -----"+
+                "\nNom : " + name +
+                "\nType : " + getType() +
+                "\nStat : " + value +
+                "\n---------------------------";
     }
 }

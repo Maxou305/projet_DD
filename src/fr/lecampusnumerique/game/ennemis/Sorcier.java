@@ -2,7 +2,7 @@ package fr.lecampusnumerique.game.ennemis;
 
 public class Sorcier extends Ennemi {
     public Sorcier() {
-        super("Drago Malefoy");
+        super("Karaba");
         setLife(2);
         setAttack(9);
     }

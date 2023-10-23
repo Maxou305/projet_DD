@@ -120,7 +120,7 @@ public class Menu {
     }
 
     public void startGame() {
-        newGame = new Game();
+        newGame = new Game(player);
     }
 
     public void endGame() {

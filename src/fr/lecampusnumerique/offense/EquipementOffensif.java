@@ -1,6 +1,9 @@
 package fr.lecampusnumerique.offense;
 
-public abstract class EquipementOffensif {
+import fr.lecampusnumerique.game.Cell;
+import fr.lecampusnumerique.personnages.Personnage;
+
+public abstract class EquipementOffensif implements Cell {
     private int value;
     private String name;
 
@@ -29,11 +32,16 @@ public abstract class EquipementOffensif {
         this.name = name;
     }
 
+    public void interaction(Personnage player) {
+        System.out.println(this);
+    }
+
     @Override
     public String toString() {
-        return "-----" +
+        return  "----- FICHE DE L'ARME -----"+
                 "\nNom : " + name +
                 "\nType : " + getType() +
-                "\nStat : " + value;
+                "\nStat : " + value +
+                "\n---------------------------";
     }
 }

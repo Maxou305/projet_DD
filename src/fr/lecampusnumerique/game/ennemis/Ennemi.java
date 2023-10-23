@@ -1,6 +1,7 @@
 package fr.lecampusnumerique.game.ennemis;
 
 import fr.lecampusnumerique.game.Cell;
+import fr.lecampusnumerique.personnages.Personnage;
 
 
 public abstract class Ennemi implements Cell {
@@ -40,9 +41,18 @@ public abstract class Ennemi implements Cell {
         name = name;
     }
 
-@Override
-    public void interact() {
-    System.out.println("Bagarre");
+    @Override
+    public void interaction(Personnage player) {
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        return "----- FICHE DE L'ENNEMI ----" +
+                "\nNom : " + name +
+                "\nLife : " + life +
+                "\nAttaque : " + attack +
+                "\n--------------------------";
 
     }
 }

@@ -16,9 +16,4 @@ public abstract class Arme extends EquipementOffensif implements Cell {
     public String getType() {
         return "Arme";
     }
-
-    @Override
-    public void interact() {
-        System.out.println("Oh, un salami");
-    }
 }

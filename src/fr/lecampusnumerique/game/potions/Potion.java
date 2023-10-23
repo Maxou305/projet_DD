@@ -1,11 +1,14 @@
 package fr.lecampusnumerique.game.potions;
 
 import fr.lecampusnumerique.game.Cell;
+import fr.lecampusnumerique.personnages.Personnage;
 
 public abstract class Potion implements Cell {
+    String name;
     int heal;
 
-    public Potion(int pHeal) {
+    public Potion(String pName, int pHeal) {
+        name = pName;
         heal = pHeal;
     }
 
@@ -18,7 +21,15 @@ public abstract class Potion implements Cell {
     }
 
     @Override
-    public void interact() {
-        System.out.println("Glou glou");
+    public void interaction(Personnage player) {
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        return  "----- FICHE DE LA POTION -----" +
+                "\nNom : " + name +
+                "\nHeal : " + heal +
+                "\n----------------------------";
     }
 }

@@ -88,6 +88,6 @@ public abstract class Personnage {
                 "\nForce : " + strength +
                 "\nOffensive : " + offensive +
                 "\nDefensive : " + defensive +
-                "\n--------------------------";
+                "\n------------------------";
     }
 }
