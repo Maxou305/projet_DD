@@ -42,13 +42,22 @@ public abstract class Ennemi implements Cell {
     }
 
     @Override
-    public void interaction(Personnage player) {
-        System.out.println(this);
+    public void interaction(Personnage pPlayer) {
+        System.out.println("Alerte ! Vous avez rencontré un " + name + this);
+        while (life >= 0 && pPlayer.getLife() >= 0) {
+            pPlayer.attack(this);
+            if (life > 0) pPlayer.damaged(this);
+        }
+        if (life < 0) {
+            System.out.println("Bravo tu as éliminé l'ennemi ! Il te reste " + pPlayer.getLife() + " HP");
+            return;
+        }
+        if (pPlayer.getLife() < 0) System.out.println("Déso t'es mort...");
     }
 
     @Override
     public String toString() {
-        return "----- FICHE DE L'ENNEMI ----" +
+        return "\n----- FICHE DE L'ENNEMI ----" +
                 "\nNom : " + name +
                 "\nLife : " + life +
                 "\nAttaque : " + attack +

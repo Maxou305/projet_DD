@@ -19,7 +19,6 @@ public class Game {
     private final ArrayList<Cell> plateau;
     private int posPlayer;
     private final Personnage player;
-    Scanner eventUser = new Scanner(System.in);
 
 
     /**
@@ -28,7 +27,8 @@ public class Game {
     public Game(Personnage pPlayer) {
         plateau = new ArrayList<>();
         posPlayer = 0;
-        initRandomCasesPlateau();
+        initCasesPlateau();
+//        initRandomCasesPlateau();
         player = pPlayer;
     }
 
@@ -49,22 +49,15 @@ public class Game {
             plateau.add(new CellVide());
         }
         for (int i = 0; i < 64; i++) {
-            if ((i == 45) || (i == 52) || (i == 56) || (i == 62)) {
-                plateau.set(i, new Dragon());
-            } else if ((i == 10) || (i == 20) || (i == 25) || (i == 32) || (i == 35) || (i == 36) || (i == 37) || (i == 40) || (i == 44) || (i == 47)) {
-                plateau.set(i, new Sorcier());
-            } else if ((i == 3) || (i == 6) || (i == 9) || (i == 12) || (i == 15) || (i == 18) || (i == 21) || (i == 24) || (i == 27) || (i == 30)) {
-                plateau.set(i, new Gobelin());
-            } else if ((i == 2) || (i == 11) || (i == 5) || (i == 22) || (i == 38)) {
-                plateau.set(i, new Massue());
-            } else if ((i == 19) || (i == 26) || (i == 42) || (i == 53)) {
-                plateau.set(i, new Eclair());
-            } else if ((i == 48) || (i == 49)) {
-                plateau.set(i, new BouleDeFeu());
-            } else if ((i == 7) || (i == 13) || (i == 31) || (i == 33) || (i == 39) || (i == 43)) {
-                plateau.set(i, new PopoMini());
-            } else if ((i == 28) || (i == 41)) {
-                plateau.set(i, new PopoBig());
+            switch (i) {
+                case 45, 52, 56, 62 -> plateau.set(i, new Dragon());
+                case 10, 20, 25, 32, 35, 36, 37, 40, 44, 47 -> plateau.set(i, new Sorcier());
+                case 3, 6, 9, 12, 15, 18, 21, 24, 27, 30 -> plateau.set(i, new Gobelin());
+                case 2, 11, 5, 22, 38 -> plateau.set(i, new Massue());
+                case 19, 26, 42, 53 -> plateau.set(i, new Eclair());
+                case 48, 49 -> plateau.set(i, new BouleDeFeu());
+                case 7, 13, 31, 33, 39, 43 -> plateau.set(i, new PopoMini());
+                case 28, 41 -> plateau.set(i, new PopoBig());
             }
         }
     }
@@ -140,56 +133,30 @@ public class Game {
 
     // ----- GESTION PLAYER ------------------------------------------------------------------------------------
 
-//    public void movePlayer() {
-//        while (posPlayer < 63) {
-//            int result = jetDados();
-//            posPlayer += result;
-//            System.out.println("Vous avez fait " + result + " et avancé à sur la case " + posPlayer);
-//            if (posPlayer > 63) {
-//                posPlayer = 126 - posPlayer;
-//            }
-//            if (posPlayer == 63) {
-//                System.out.println("OMG t'as fini");
-//            }
-//
-//        }
-//        System.out.println("Normalement tout va bien (je crois)");
-//    }
-//    public void movePlayer() {
-//        try {
-//            while (posPlayer < 63) {
-//                int result = jetDados();
-//                posPlayer = plateau[posPlayer + result];
-//                System.out.println("Vous avez fait " + result + " et avancé à sur la case " + posPlayer);
-//            }
-//        } catch(ArrayIndexOutOfBoundsException e){
-//            System.out.println("STOOOOOOOOOOOOOOP TU VAS TROP LOIN !!!!!!!!");
-//        }
-//    }
-
     /**
      * Méthode permettant de faire avancer le joueur, à chaque itération la variable posPlayer est mise à jour.
      *
      * @throws PersonnageHorsPlateauException permet de relever une exception et de la traiter lorsque le joueur sort du plateau
      */
     public void movePlayer() throws PersonnageHorsPlateauException {
-        while (posPlayer < 64) {
-            int result = jetDados();
-            posPlayer += result;
-            if (posPlayer > 63) {
-                throw new PersonnageHorsPlateauException();
-            }
-            if (posPlayer == 63) {
-                System.out.println("OMG t'as fini");
-            }
-            System.out.println("Vous avez fait " + result + " et avancé sur la case " + posPlayer);
-            plateau.get(posPlayer).interaction(player);
-            String temp = eventUser.nextLine();
+        int result = jetDados();
+        posPlayer += result;
+        if (posPlayer > 63) {
+            throw new PersonnageHorsPlateauException();
         }
-        System.out.println("Normalement tout va bien (je crois)");
+        if (posPlayer == 63) {
+            System.out.println("OMG t'as fini");
+        }
+        System.out.println("Vous avez fait " + result + " et avancé sur la case " + posPlayer);
     }
 
     // -------------------------------------- GESTION DE LA PARTIE --------------------------------------
+
+    public void checkCase() {
+        Scanner eventUser = new Scanner(System.in);
+        plateau.get(posPlayer).interaction(player);
+        String temp = eventUser.nextLine();
+    }
 
     /**
      * Méthode permettant de jouer au jeu
@@ -197,7 +164,11 @@ public class Game {
     public void playGame() {
         // test de la méthode et renvoie d'erreur si besoin
         try {
-            movePlayer();
+            while (posPlayer < 64) {
+                movePlayer();
+                checkCase();
+
+            }
         } catch (PersonnageHorsPlateauException e) {
             System.out.println("STOOOOOOOOOOOOOOP TU VAS TROP LOIN !!!!!!!!");
         }

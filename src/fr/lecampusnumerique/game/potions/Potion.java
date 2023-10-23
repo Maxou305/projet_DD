@@ -21,8 +21,12 @@ public abstract class Potion implements Cell {
     }
 
     @Override
-    public void interaction(Personnage player) {
-        System.out.println(this);
+    public void interaction(Personnage pPlayer) {
+        pPlayer.heal(heal);
+        if (pPlayer.getLife() >= pPlayer.getHpMax()){
+            pPlayer.setLife(10);
+        }
+        System.out.println("Vous avez trouvé une potion ! : \n"+this+"\nVotre vie est maintenant à "+ pPlayer.getLife());
     }
 
     @Override

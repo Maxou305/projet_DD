@@ -3,8 +3,8 @@ package fr.lecampusnumerique.game.ennemis;
 public class Gobelin extends Ennemi {
     public Gobelin() {
         super("Gripsec");
-        setLife(1);
-        setAttack(6);
+        setAttack(1);
+        setLife(6);
     }
 
     @Override

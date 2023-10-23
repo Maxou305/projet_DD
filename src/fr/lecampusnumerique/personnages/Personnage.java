@@ -7,6 +7,7 @@ import fr.lecampusnumerique.game.ennemis.Ennemi;
 public abstract class Personnage {
     private String name;
     private int life;
+    private int hpMax;
     private int strength;
     private EquipementOffensif offensive;
     private EquipementDefensif defensive;
@@ -20,15 +21,13 @@ public abstract class Personnage {
         life = life + healing;
     }
 
-    public void attack(Ennemi ennemi) {
-        ennemi.setLife(ennemi.getLife() - (strength + offensive.getValue()));
+    public void attack(Ennemi pEnnemi) {
+        pEnnemi.setLife(pEnnemi.getLife() - (strength + offensive.getValue()));
     }
 
     public void damaged(Ennemi ennemi) {
         int damages = ennemi.getAttack() - defensive.getValue();
-        if (damages > 0) {
-            life -= damages;
-        }
+        life -= damages;
     }
 
     public void displayStats() {
@@ -53,6 +52,14 @@ public abstract class Personnage {
 
     public void setLife(int life) {
         this.life = life;
+    }
+
+    public int getHpMax() {
+        return hpMax;
+    }
+
+    public void setHpMax(int hpMax) {
+        this.hpMax = hpMax;
     }
 
     public int getStrength() {
