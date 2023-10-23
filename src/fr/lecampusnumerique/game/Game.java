@@ -11,7 +11,9 @@ import fr.lecampusnumerique.offense.guerrier.Massue;
 import fr.lecampusnumerique.offense.magicien.BouleDeFeu;
 import fr.lecampusnumerique.offense.magicien.Eclair;
 import fr.lecampusnumerique.personnages.Personnage;
+import fr.lecampusnumerique.main.Menu;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,8 +29,8 @@ public class Game {
     public Game(Personnage pPlayer) {
         plateau = new ArrayList<>();
         posPlayer = 0;
-        initCasesPlateau();
-//        initRandomCasesPlateau();
+//        initCasesPlateau();
+        initRandomCasesPlateau();
         player = pPlayer;
     }
 
@@ -141,13 +143,10 @@ public class Game {
     public void movePlayer() throws PersonnageHorsPlateauException {
         int result = jetDados();
         posPlayer += result;
+        System.out.println("Vous avez fait " + result + " et avancé sur la case " + posPlayer);
         if (posPlayer > 63) {
             throw new PersonnageHorsPlateauException();
         }
-        if (posPlayer == 63) {
-            System.out.println("OMG t'as fini");
-        }
-        System.out.println("Vous avez fait " + result + " et avancé sur la case " + posPlayer);
     }
 
     // -------------------------------------- GESTION DE LA PARTIE --------------------------------------
@@ -155,6 +154,9 @@ public class Game {
     public void checkCase() {
         Scanner eventUser = new Scanner(System.in);
         plateau.get(posPlayer).interaction(player);
+        if (posPlayer == 63) {
+            System.out.println("OMG t'as fini !");
+        }
         String temp = eventUser.nextLine();
     }
 
@@ -167,7 +169,6 @@ public class Game {
             while (posPlayer < 64) {
                 movePlayer();
                 checkCase();
-
             }
         } catch (PersonnageHorsPlateauException e) {
             System.out.println("STOOOOOOOOOOOOOOP TU VAS TROP LOIN !!!!!!!!");

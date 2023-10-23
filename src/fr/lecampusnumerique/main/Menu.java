@@ -4,6 +4,7 @@ import fr.lecampusnumerique.game.Game;
 import fr.lecampusnumerique.personnages.Guerrier;
 import fr.lecampusnumerique.personnages.Magicien;
 import fr.lecampusnumerique.personnages.Personnage;
+
 import java.util.Scanner;
 
 public class Menu {
@@ -34,7 +35,7 @@ public class Menu {
                     }
                     if (choice == 3) {
                         exitSousMenu = true;
-                        startGame();
+                        newGame = new Game(player);
                         newGame.playGame();
                         endGame();
                     }
@@ -84,12 +85,14 @@ public class Menu {
 
     /**
      * Permet de récupérer le choix du joueur dans le menu (int uniquement)
+     *
      * @return
      */
     public int getUserChoice() {
         Scanner newEventUser = new Scanner(System.in);
         return newEventUser.nextInt();
     }
+
     // ----- PARTIE GRAPHIQUE ------------------------------------------------------------------------------------
     public void displayBanner() {
         System.out.println("----------------------------------------------------------------------------");
@@ -119,15 +122,11 @@ public class Menu {
         exitStartMenu = true;
     }
 
-    public void startGame() {
-        newGame = new Game(player);
-    }
-
     public void endGame() {
         System.out.println("Que voulez-vous faire ?\n1 - Recommencer une partie\n2 - Quitter");
         int choice = getUserChoice();
         if (choice == 1) {
-            startGame();
+            newGame = new Game(player);
             newGame.playGame();
             endGame();
         } else if (choice == 2) {
