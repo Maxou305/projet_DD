@@ -6,6 +6,7 @@ import fr.lecampusnumerique.game.ennemis.Gobelin;
 import fr.lecampusnumerique.game.ennemis.Sorcier;
 import fr.lecampusnumerique.game.potions.PopoBig;
 import fr.lecampusnumerique.game.potions.PopoMini;
+import fr.lecampusnumerique.offense.guerrier.Epee;
 import fr.lecampusnumerique.offense.guerrier.Massue;
 import fr.lecampusnumerique.offense.magicien.BouleDeFeu;
 import fr.lecampusnumerique.offense.magicien.Eclair;
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    private ArrayList<Cell> plateau;
+    private final ArrayList<Cell> plateau;
     private int posPlayer;
-    private Personnage player;
+    private final Personnage player;
     Scanner eventUser = new Scanner(System.in);
 
 
@@ -27,7 +28,7 @@ public class Game {
     public Game(Personnage pPlayer) {
         plateau = new ArrayList<>();
         posPlayer = 0;
-        initCasesPlateau();
+        initRandomCasesPlateau();
         player = pPlayer;
     }
 
@@ -37,8 +38,7 @@ public class Game {
      * @return valeur du jet de dés
      */
     public int jetDados() {
-        int dado = 1 + (int) (Math.random() * ((6 - 1) + 1));
-        return dado;
+        return 1 + (int) (Math.random() * ((6 - 1) + 1));
     }
 
     /**
@@ -69,14 +69,82 @@ public class Game {
         }
     }
 
+    public void initRandomCasesPlateau() {
+        int nbrDragons = 4;
+        int nbrSorciers = 10;
+        int nbrGobelins = 10;
+        int nbrMassues = 5;
+        int nbrEpees = 4;
+        int nbrEclairs = 5;
+        int nbrBoulesDeFeu = 2;
+        int nbrPopoMini = 6;
+        int nbrPopoBig = 2;
+        int nbrCellVide = 16;
+
+        int cases = 0;
+
+        while (cases < 64) {
+            int choix = 1 + (int) (Math.random() * ((10 - 1) + 1));
+            if (choix == 1 && nbrDragons > 0) {
+                plateau.add(new Dragon());
+                nbrDragons--;
+                cases++;
+            }
+            if (choix == 2 && nbrSorciers > 0) {
+                plateau.add(new Sorcier());
+                nbrSorciers--;
+                cases++;
+            }
+            if (choix == 3 && nbrGobelins > 0) {
+                plateau.add(new Gobelin());
+                nbrGobelins--;
+                cases++;
+            }
+            if (choix == 4 && nbrMassues > 0) {
+                plateau.add(new Massue());
+                nbrMassues--;
+                cases++;
+            }
+            if (choix == 5 && nbrEpees > 0) {
+                plateau.add(new Epee());
+                nbrEpees--;
+                cases++;
+            }
+            if (choix == 6 && nbrEclairs > 0) {
+                plateau.add(new Eclair());
+                nbrEclairs--;
+                cases++;
+            }
+            if (choix == 7 && nbrBoulesDeFeu > 0) {
+                plateau.add(new BouleDeFeu());
+                nbrBoulesDeFeu--;
+                cases++;
+            }
+            if (choix == 8 && nbrPopoMini > 0) {
+                plateau.add(new PopoMini());
+                nbrPopoMini--;
+                cases++;
+            }
+            if (choix == 9 && nbrPopoBig > 0) {
+                plateau.add(new PopoBig());
+                nbrPopoBig--;
+                cases++;
+            }
+            if (choix == 10 && nbrCellVide > 0) {
+                plateau.add(new CellVide());
+                nbrCellVide--;
+                cases++;
+            }
+        }
+    }
 
     // ----- GESTION PLAYER ------------------------------------------------------------------------------------
 
 //    public void movePlayer() {
 //        while (posPlayer < 63) {
-//            int resultat = jetDados();
-//            posPlayer += resultat;
-//            System.out.println("Vous avez fait " + resultat + " et avancé à sur la case " + posPlayer);
+//            int result = jetDados();
+//            posPlayer += result;
+//            System.out.println("Vous avez fait " + result + " et avancé à sur la case " + posPlayer);
 //            if (posPlayer > 63) {
 //                posPlayer = 126 - posPlayer;
 //            }
@@ -90,9 +158,9 @@ public class Game {
 //    public void movePlayer() {
 //        try {
 //            while (posPlayer < 63) {
-//                int resultat = jetDados();
-//                posPlayer = plateau[posPlayer + resultat];
-//                System.out.println("Vous avez fait " + resultat + " et avancé à sur la case " + posPlayer);
+//                int result = jetDados();
+//                posPlayer = plateau[posPlayer + result];
+//                System.out.println("Vous avez fait " + result + " et avancé à sur la case " + posPlayer);
 //            }
 //        } catch(ArrayIndexOutOfBoundsException e){
 //            System.out.println("STOOOOOOOOOOOOOOP TU VAS TROP LOIN !!!!!!!!");
@@ -106,15 +174,15 @@ public class Game {
      */
     public void movePlayer() throws PersonnageHorsPlateauException {
         while (posPlayer < 64) {
-            int resultat = jetDados();
-            posPlayer += resultat;
+            int result = jetDados();
+            posPlayer += result;
             if (posPlayer > 63) {
                 throw new PersonnageHorsPlateauException();
             }
             if (posPlayer == 63) {
                 System.out.println("OMG t'as fini");
             }
-            System.out.println("Vous avez fait " + resultat + " et avancé sur la case " + posPlayer);
+            System.out.println("Vous avez fait " + result + " et avancé sur la case " + posPlayer);
             plateau.get(posPlayer).interaction(player);
             String temp = eventUser.nextLine();
         }
