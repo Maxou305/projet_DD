@@ -136,8 +136,8 @@ public abstract class Personnage {
                 "\nClasse : " + getType() +
                 "\nHP : " + life +
                 "\nForce : " + strength +
-                "\nOffensive : " + offensive +
-                "\nDefensive : " + defensive +
+                "\n" + offensive +
+                "\n" + defensive +
                 "\n------------------------";
     }
 }

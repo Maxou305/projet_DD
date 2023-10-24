@@ -36,6 +36,7 @@ public class Menu {
                         updatePlayer();
                     }
                     if (choice == 3) {
+
                         exitSousMenu = true;
                         newGame = new Game(player);
                         newGame.playGame(player);
