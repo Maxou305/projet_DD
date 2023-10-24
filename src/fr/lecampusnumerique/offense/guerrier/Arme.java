@@ -1,11 +1,11 @@
 package fr.lecampusnumerique.offense.guerrier;
 
-import fr.lecampusnumerique.game.Cell;
 import fr.lecampusnumerique.offense.EquipementOffensif;
 
-public class Arme extends EquipementOffensif implements Cell {
+public class Arme extends EquipementOffensif {
     public Arme(String pName) {
         super(pName);
+        setUsableBy("guerrier");
     }
 
     public Arme() {

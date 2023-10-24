@@ -5,6 +5,7 @@ import fr.lecampusnumerique.offense.EquipementOffensif;
 public class Sort extends EquipementOffensif {
     public Sort(String pName) {
         super(pName);
+        setUsableBy("magicien");
     }
     public Sort(){
         this("Popo magique"); // this() permet d'appeler le constructeur de base !

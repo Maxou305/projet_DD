@@ -6,6 +6,6 @@ public class CellVide implements Cell {
 
     @Override
     public void interaction(Personnage player) {
-        System.out.println("OK BRO");
+        System.out.println("C'est une salle vide, tu peux chill");
     }
 }

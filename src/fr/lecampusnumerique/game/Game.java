@@ -2,6 +2,7 @@ package fr.lecampusnumerique.game;
 
 import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
 import fr.lecampusnumerique.game.ennemis.Dragon;
+import fr.lecampusnumerique.game.ennemis.Ennemi;
 import fr.lecampusnumerique.game.ennemis.Gobelin;
 import fr.lecampusnumerique.game.ennemis.Sorcier;
 import fr.lecampusnumerique.game.potions.PopoBig;
@@ -11,15 +12,12 @@ import fr.lecampusnumerique.offense.guerrier.Massue;
 import fr.lecampusnumerique.offense.magicien.BouleDeFeu;
 import fr.lecampusnumerique.offense.magicien.Eclair;
 import fr.lecampusnumerique.personnages.Personnage;
-import fr.lecampusnumerique.main.Menu;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
     private final ArrayList<Cell> plateau;
-    private int posPlayer;
     private final Personnage player;
 
 
@@ -28,9 +26,9 @@ public class Game {
      */
     public Game(Personnage pPlayer) {
         plateau = new ArrayList<>();
-        posPlayer = 0;
-//        initCasesPlateau();
-        initRandomCasesPlateau();
+        pPlayer.setPosPlayer(0);
+        initCasesPlateau();
+//        initRandomCasesPlateau();
         player = pPlayer;
     }
 
@@ -48,21 +46,20 @@ public class Game {
      */
     public void initCasesPlateau() {
         for (int i = 0; i < 64; i++) {
-            plateau.add(new CellVide());
-        }
-        for (int i = 0; i < 64; i++) {
             switch (i) {
-                case 45, 52, 56, 62 -> plateau.set(i, new Dragon());
-                case 10, 20, 25, 32, 35, 36, 37, 40, 44, 47 -> plateau.set(i, new Sorcier());
-                case 3, 6, 9, 12, 15, 18, 21, 24, 27, 30 -> plateau.set(i, new Gobelin());
-                case 2, 11, 5, 22, 38 -> plateau.set(i, new Massue());
-                case 19, 26, 42, 53 -> plateau.set(i, new Eclair());
-                case 48, 49 -> plateau.set(i, new BouleDeFeu());
-                case 7, 13, 31, 33, 39, 43 -> plateau.set(i, new PopoMini());
-                case 28, 41 -> plateau.set(i, new PopoBig());
+                case 45, 52, 56, 62 -> plateau.add(new Dragon());
+                case 10, 20, 25, 32, 35, 36, 37, 40, 44, 47 -> plateau.add(new Sorcier());
+                case 3, 6, 9, 12, 15, 18, 21, 24, 27, 30 -> plateau.add(new Gobelin());
+                case 2, 11, 5, 22, 38 -> plateau.add(new Massue());
+                case 19, 26, 42, 53 -> plateau.add(new Eclair());
+                case 48, 49 -> plateau.add(new BouleDeFeu());
+                case 7, 13, 31, 33, 39, 43 -> plateau.add(new PopoMini());
+                case 28, 41 -> plateau.add(new PopoBig());
+                default -> plateau.add(new CellVide());
             }
         }
     }
+
 
     public void initRandomCasesPlateau() {
         int nbrDragons = 4;
@@ -140,35 +137,40 @@ public class Game {
      *
      * @throws PersonnageHorsPlateauException permet de relever une exception et de la traiter lorsque le joueur sort du plateau
      */
-    public void movePlayer() throws PersonnageHorsPlateauException {
+    public void movePlayer(Personnage pPlayer) throws PersonnageHorsPlateauException {
         int result = jetDados();
-        posPlayer += result;
-        System.out.println("Vous avez fait " + result + " et avancé sur la case " + posPlayer);
-        if (posPlayer > 63) {
+        pPlayer.setPosPlayer(pPlayer.getPosPlayer() + result);
+        System.out.println("Vous avez fait " + result + " et avancé sur la case " + pPlayer.getPosPlayer());
+        if (pPlayer.getPosPlayer() > 63) {
             throw new PersonnageHorsPlateauException();
         }
     }
 
     // -------------------------------------- GESTION DE LA PARTIE --------------------------------------
 
-    public void checkCase() {
+    public void checkCase(Personnage pPlayer) {
         Scanner eventUser = new Scanner(System.in);
-        plateau.get(posPlayer).interaction(player);
-        if (posPlayer == 63) {
+        plateau.get(pPlayer.getPosPlayer()).interaction(player);
+        if (pPlayer.getPosPlayer() == 63) {
             System.out.println("OMG t'as fini !");
         }
+        System.out.println("[entrée] pour passer au tour suivant");
         String temp = eventUser.nextLine();
     }
 
     /**
      * Méthode permettant de jouer au jeu
      */
-    public void playGame() {
+    public void playGame(Personnage pPlayer) {
         // test de la méthode et renvoie d'erreur si besoin
         try {
-            while (posPlayer < 64) {
-                movePlayer();
-                checkCase();
+            while (pPlayer.getPosPlayer() < 64) {
+                movePlayer(player);
+                checkCase(player);
+                if (player.isExitFight()) {
+                    checkCase(player);
+                    player.setExitFight(false);
+                }
             }
         } catch (PersonnageHorsPlateauException e) {
             System.out.println("STOOOOOOOOOOOOOOP TU VAS TROP LOIN !!!!!!!!");

@@ -9,6 +9,8 @@ public abstract class Personnage {
     private int life;
     private int hpMax;
     private int strength;
+    private int posPlayer;
+    boolean exitFight = false;
     private EquipementOffensif offensive;
     private EquipementDefensif defensive;
 
@@ -84,6 +86,22 @@ public abstract class Personnage {
 
     public void setDefensive(EquipementDefensif defensive) {
         this.defensive = defensive;
+    }
+
+    public int getPosPlayer() {
+        return posPlayer;
+    }
+
+    public void setPosPlayer(int position) {
+        this.posPlayer = position;
+    }
+
+    public boolean isExitFight() {
+        return exitFight;
+    }
+
+    public void setExitFight(boolean exitFight) {
+        this.exitFight = exitFight;
     }
 
     @Override

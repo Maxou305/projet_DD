@@ -36,7 +36,7 @@ public class Menu {
                     if (choice == 3) {
                         exitSousMenu = true;
                         newGame = new Game(player);
-                        newGame.playGame();
+                        newGame.playGame(player);
                         endGame();
                     }
                     quit();
@@ -127,7 +127,7 @@ public class Menu {
         int choice = getUserChoice();
         if (choice == 1) {
             newGame = new Game(player);
-            newGame.playGame();
+            newGame.playGame(player);
             endGame();
         } else if (choice == 2) {
             quit();

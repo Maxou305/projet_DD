@@ -24,7 +24,7 @@ public abstract class Potion implements Cell {
     public void interaction(Personnage pPlayer) {
         pPlayer.heal(heal);
         if (pPlayer.getLife() >= pPlayer.getHpMax()){
-            pPlayer.setLife(10);
+            pPlayer.setLife(pPlayer.getHpMax());
         }
         System.out.println("Vous avez trouvé une potion ! : \n"+this+"\nVotre vie est maintenant à "+ pPlayer.getLife());
     }

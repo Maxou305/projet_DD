@@ -6,7 +6,8 @@ public class Philtre extends EquipementDefensif {
     }
 
     public Philtre() {
-        this("Miroir miroir"); setValue(0);; // this() permet d'appeler le constructeur de base !
+        this("Miroir miroir"); // this() permet d'appeler le constructeur de base !
+        setValue(0);
     }
 
     @Override
