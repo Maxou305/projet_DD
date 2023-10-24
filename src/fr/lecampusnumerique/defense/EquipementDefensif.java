@@ -30,7 +30,7 @@ public abstract class EquipementDefensif {
     }
     @Override
     public String toString() {
-        return  "----- FICHE DU SHIELD -----"+
+        return  "\n----- FICHE DU SHIELD -----"+
                 "\nNom : " + name +
                 "\nType : " + getType() +
                 "\nStat : " + value +

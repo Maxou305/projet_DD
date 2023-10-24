@@ -160,8 +160,21 @@ public class Game {
         if (pPlayer.getPosPlayer() == 63) {
             System.out.println("OMG t'as fini !");
         }
-        System.out.println("[entrée] pour passer au tour suivant");
-        String temp = eventUser.nextLine();
+        endTurnChoice(pPlayer);
+    }
+
+    private void endTurnChoice(Personnage pPlayer) {
+        boolean endTurnExit = false;
+        Scanner eventUser = new Scanner(System.in);
+        while (!endTurnExit) {
+            System.out.println("[entrée] pour passer au tour suivant, INFO pour voir tes stats");
+            String temp = eventUser.nextLine();
+            if (temp.equalsIgnoreCase("info")) {
+                System.out.println(pPlayer);
+            } else {
+                endTurnExit = true;
+            }
+        }
     }
 
     public void checkSpecialConditions(Personnage pPlayer) {
@@ -193,7 +206,6 @@ public class Game {
             movePlayer(pPlayer);
             checkCase(pPlayer);
             checkSpecialConditions(pPlayer);
-
         }
     }
 }

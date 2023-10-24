@@ -62,7 +62,7 @@ public abstract class EquipementOffensif implements Cell {
 
     @Override
     public String toString() {
-        return "----- FICHE DE L'ARME -----" +
+        return "\n----- FICHE DE L'ARME -----" +
                 "\nNom : " + name +
                 "\nType : " + getType() +
                 "\nStat : " + value +
