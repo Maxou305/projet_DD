@@ -1,6 +1,8 @@
 package fr.lecampusnumerique.main;
 
 import fr.lecampusnumerique.game.Game;
+import fr.lecampusnumerique.offense.guerrier.Arme;
+import fr.lecampusnumerique.offense.magicien.Sort;
 import fr.lecampusnumerique.personnages.Guerrier;
 import fr.lecampusnumerique.personnages.Magicien;
 import fr.lecampusnumerique.personnages.Personnage;
@@ -126,6 +128,14 @@ public class Menu {
         System.out.println("Que voulez-vous faire ?\n1 - Recommencer une partie\n2 - Quitter");
         int choice = getUserChoice();
         if (choice == 1) {
+            int newChoice = getUserChoice();
+            System.out.println("Que voulez-vous faire ?\n1 - Garder le même personnage\n2 - Créer un nouveau personnage");
+            if (newChoice == 1) {
+                player.setLife(player.getStartLife());
+                player.setOffensive(player.getType().equalsIgnoreCase("guerrier") ? new Arme() : new Sort());
+            } else {
+                createNewPlayer();
+            }
             newGame = new Game(player);
             newGame.playGame(player);
             endGame();

@@ -7,10 +7,12 @@ import fr.lecampusnumerique.game.ennemis.Ennemi;
 public abstract class Personnage {
     private String name;
     private int life;
+    private int startLife;
     private int hpMax;
     private int strength;
     private int posPlayer;
     boolean exitFight = false;
+    boolean winFight = false;
     private EquipementOffensif offensive;
     private EquipementDefensif defensive;
 
@@ -32,11 +34,34 @@ public abstract class Personnage {
         life -= damages;
     }
 
+    public void escape() {
+        int result = 1 + (int) (Math.random() * ((6 - 1) + 1));
+        posPlayer -= result;
+        System.out.println("OK tu fuis, pas de bashing. Mais tu recules quand même de " + result + " cases. T'es maintenant sur la case " + posPlayer);
+        exitFight = true;
+    }
+
     public void displayStats() {
         System.out.println(this);
     }
 
     // ----- GETTERS & SETTERS ------------------------------------------------------------------------------------
+
+    public int getStartLife() {
+        return startLife;
+    }
+
+    public void setStartLife(int startLife) {
+        this.startLife = startLife;
+    }
+
+    public boolean isWinFight() {
+        return winFight;
+    }
+
+    public void setWinFight(boolean winFight) {
+        this.winFight = winFight;
+    }
 
     public String getName() {
         return name;

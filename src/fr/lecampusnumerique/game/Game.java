@@ -2,7 +2,6 @@ package fr.lecampusnumerique.game;
 
 import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
 import fr.lecampusnumerique.game.ennemis.Dragon;
-import fr.lecampusnumerique.game.ennemis.Ennemi;
 import fr.lecampusnumerique.game.ennemis.Gobelin;
 import fr.lecampusnumerique.game.ennemis.Sorcier;
 import fr.lecampusnumerique.game.potions.PopoBig;
@@ -18,7 +17,6 @@ import java.util.Scanner;
 
 public class Game {
     private final ArrayList<Cell> plateau;
-    private final Personnage player;
 
 
     /**
@@ -27,9 +25,8 @@ public class Game {
     public Game(Personnage pPlayer) {
         plateau = new ArrayList<>();
         pPlayer.setPosPlayer(0);
-        initCasesPlateau();
-//        initRandomCasesPlateau();
-        player = pPlayer;
+//        initCasesPlateau();
+        initRandomCasesPlateau();
     }
 
     /**
@@ -137,12 +134,21 @@ public class Game {
      *
      * @throws PersonnageHorsPlateauException permet de relever une exception et de la traiter lorsque le joueur sort du plateau
      */
-    public void movePlayer(Personnage pPlayer) throws PersonnageHorsPlateauException {
+//    public void movePlayer(Personnage pPlayer) throws PersonnageHorsPlateauException {
+//        int result = jetDados();
+//        pPlayer.setPosPlayer(pPlayer.getPosPlayer() + result);
+//        System.out.println("Vous avez fait " + result + " et avancé sur la case " + pPlayer.getPosPlayer());
+//        if (pPlayer.getPosPlayer() > 63) {
+//            throw new PersonnageHorsPlateauException();
+//        }
+//    }
+    public void movePlayer(Personnage pPlayer) {
         int result = jetDados();
         pPlayer.setPosPlayer(pPlayer.getPosPlayer() + result);
         System.out.println("Vous avez fait " + result + " et avancé sur la case " + pPlayer.getPosPlayer());
         if (pPlayer.getPosPlayer() > 63) {
-            throw new PersonnageHorsPlateauException();
+            pPlayer.setPosPlayer(126 - pPlayer.getPosPlayer());
+            System.out.println("Tu vas trop loin, donc tu recules. T'es maintenant en case " + pPlayer.getPosPlayer() + ".");
         }
     }
 
@@ -150,7 +156,7 @@ public class Game {
 
     public void checkCase(Personnage pPlayer) {
         Scanner eventUser = new Scanner(System.in);
-        plateau.get(pPlayer.getPosPlayer()).interaction(player);
+        plateau.get(pPlayer.getPosPlayer()).interaction(pPlayer);
         if (pPlayer.getPosPlayer() == 63) {
             System.out.println("OMG t'as fini !");
         }
@@ -158,22 +164,36 @@ public class Game {
         String temp = eventUser.nextLine();
     }
 
+    public void checkSpecialConditions(Personnage pPlayer) {
+        if (pPlayer.isExitFight()) {
+            checkCase(pPlayer);
+            pPlayer.setExitFight(false);
+        }
+        if (pPlayer.isWinFight()) {
+            plateau.set(pPlayer.getPosPlayer(), new CellCadavre());
+            pPlayer.setWinFight(false);
+        }
+    }
+
     /**
      * Méthode permettant de jouer au jeu
      */
     public void playGame(Personnage pPlayer) {
         // test de la méthode et renvoie d'erreur si besoin
-        try {
-            while (pPlayer.getPosPlayer() < 64) {
-                movePlayer(player);
-                checkCase(player);
-                if (player.isExitFight()) {
-                    checkCase(player);
-                    player.setExitFight(false);
-                }
-            }
-        } catch (PersonnageHorsPlateauException e) {
-            System.out.println("STOOOOOOOOOOOOOOP TU VAS TROP LOIN !!!!!!!!");
+//        try {
+//            while (pPlayer.getPosPlayer() < 64 && pPlayer.getPosPlayer() >= 0) {
+//                movePlayer(pPlayer);
+//                checkCase(pPlayer);
+//                checkSpecialConditions(pPlayer);
+//            }
+//        } catch (PersonnageHorsPlateauException e) {
+//            System.out.println("STOOOOOOOOOOOOOOP TU VAS TROP LOIN !!!!!!!!");
+//        }
+        while (pPlayer.getPosPlayer() < 64 && pPlayer.getPosPlayer() >= 0 && pPlayer.getLife() > 0) {
+            movePlayer(pPlayer);
+            checkCase(pPlayer);
+            checkSpecialConditions(pPlayer);
+
         }
     }
 }
