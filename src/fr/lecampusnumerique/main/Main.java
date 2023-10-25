@@ -11,6 +11,7 @@ public class Main {
         try{
 
         menu.start();
+
         } catch (SQLException e){
 
         }

@@ -1,19 +1,16 @@
 package fr.lecampusnumerique.main;
 
 import java.sql.*;  // pour les programmes standards de JDBC
-import java.math.*; // pour le support de BigDecimal et BigInteger
 
 
-public class DBConnection {
+public class ConnexionBDD {
     Connection conMyDB;
 
-    public DBConnection() {
+    public ConnexionBDD() {
         try {
-            Driver myDriver = new com.mysql.jdbc.Driver();
-            DriverManager.registerDriver(myDriver);
             conMyDB = DriverManager.getConnection("jdbc:mysql://localhost:3306/donjons_dragons", "root", "root");
         } catch (SQLException e) {
-            System.out.println("Error: problème de driver !");
+            System.out.println("Erreur : problème de driver !");
             System.exit(1);
         }
     }
