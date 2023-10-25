@@ -19,9 +19,8 @@ public class Game {
     private final ArrayList<Cell> plateau;
     private boolean winGame = false;
 
-
     /**
-     * Constructeur de la classe Game
+     * Constructeur de la classe Game.
      */
     public Game(Personnage pPlayer) {
         plateau = new ArrayList<>();
@@ -33,14 +32,14 @@ public class Game {
     /**
      * Méthode permettant de gérer le lancer de dé. Construit grâce à un random compris en tre 1 et 6.
      *
-     * @return valeur du jet de dés
+     * @return valeur du jet de dés.
      */
     public int jetDados() {
         return 1 + (int) (Math.random() * ((6 - 1) + 1));
     }
 
     /**
-     * Permet d'initialiser un tableau avec les ArrayList. Dans ce cas, il est nécessaire de remplir D'ABORD l'ArrayList de cellules vides
+     * Permet d'initialiser le plateau de jeu.
      */
     public void initCasesPlateau() {
         for (int i = 0; i < 64; i++) {
@@ -58,7 +57,9 @@ public class Game {
         }
     }
 
-
+    /**
+     * Permet d'initialiser le plateau de jeu avec des cases placées aléatoirement.
+     */
     public void initRandomCasesPlateau() {
         int nbrDragons = 4;
         int nbrSorciers = 10;
@@ -143,6 +144,12 @@ public class Game {
 //            throw new PersonnageHorsPlateauException();
 //        }
 //    }
+
+    /**
+     * Permet de faire avancer le joueur en fonction d'un jet de dés.
+     *
+     * @param pPlayer joueur devant se déplacer
+     */
     public void movePlayer(Personnage pPlayer) {
         int result = jetDados();
         pPlayer.setPosPlayer(pPlayer.getPosPlayer() + result);
@@ -163,12 +170,22 @@ public class Game {
 
     // -------------------------------------- GESTION DE LA PARTIE --------------------------------------
 
+    /**
+     * Permet d'interagir avec une case. Vérifie aussi (si besoin) si le combat est gagné et affiche le menu de fin de tour.
+     *
+     * @param pPlayer joueur en action.
+     */
     public void checkCase(Personnage pPlayer) {
         plateau.get(pPlayer.getPosPlayer()).interaction(pPlayer);
         checkFightResult(pPlayer);
         endTurnChoice(pPlayer);
     }
 
+    /**
+     * Permet de gérer le menu de fin de tour.
+     *
+     * @param pPlayer joueur en action.
+     */
     private void endTurnChoice(Personnage pPlayer) {
         boolean endTurnExit = false;
         Scanner eventUser = new Scanner(System.in);
@@ -183,6 +200,13 @@ public class Game {
         }
     }
 
+    /**
+     * Permet de vérifier si un combat est gagné par le joueur ou s'il a fui.
+     * S'il a gagné : remplace la case par une case CellCadavre.
+     * S'il a fui : interagit avec la case sur laquelle il est arrivé.
+     *
+     * @param pPlayer joueur en action.
+     */
     public void checkFightResult(Personnage pPlayer) {
         if (pPlayer.isExitFight()) {
             checkCase(pPlayer);
@@ -195,7 +219,7 @@ public class Game {
     }
 
     /**
-     * Méthode permettant de jouer au jeu
+     * Permet de jouer au jeu. Le joueur se déplace puis il y a une vérification de case tant que la partie n'est pas gagnée et tant que le joueur a encore des points de vie.
      */
     public void playGame(Personnage pPlayer) {
         // test de la méthode et renvoie d'erreur si besoin

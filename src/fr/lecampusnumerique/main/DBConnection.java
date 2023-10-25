@@ -1,33 +1,33 @@
 package fr.lecampusnumerique.main;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Properties;
+import java.sql.*;  // pour les programmes standards de JDBC
+import java.math.*; // pour le support de BigDecimal et BigInteger
+
 
 public class DBConnection {
+    Connection conMyDB;
 
-    public static Connection getConnection() {
-        Properties properties = new Properties();
-        FileInputStream fis = null;
-        Connection connection = null;
+    public DBConnection() {
         try {
-            fis = new FileInputStream("db.properties");
-            properties.load(fis);
-
-            // load the Driver Class
-            Class.forName(properties.getProperty("DB_DRIVER_CLASS"));
-
-            // create the connection now
-            connection = DriverManager.getConnection(properties.getProperty("DB_URL"),
-                    properties.getProperty("DB_USERNAME"),
-                    properties.getProperty("DB_PASSWORD"));
-        } catch (IOException | ClassNotFoundException | SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Driver myDriver = new com.mysql.jdbc.Driver();
+            DriverManager.registerDriver(myDriver);
+            conMyDB = DriverManager.getConnection("jdbc:mysql://localhost:3306/donjons_dragons", "root", "root");
+        } catch (SQLException e) {
+            System.out.println("Error: problème de driver !");
+            System.exit(1);
         }
-        return connection;
     }
+    public void getHeroes() throws SQLException {
+        Statement stmt = conMyDB.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Hero");
+        while(rs.next()) {
+            System.out.println("id : " + rs.getInt("id"));
+            System.out.println("type : " + rs.getString("type"));
+            System.out.println("name : " + rs.getString("name"));
+        }
+    }
+
+    public void createHero(){}
+    public void editHero(){}
+    public void changeLifePoints(){}
 }

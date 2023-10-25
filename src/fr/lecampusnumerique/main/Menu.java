@@ -7,6 +7,8 @@ import fr.lecampusnumerique.personnages.Guerrier;
 import fr.lecampusnumerique.personnages.Magicien;
 import fr.lecampusnumerique.personnages.Personnage;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
@@ -15,13 +17,15 @@ public class Menu {
     boolean exitStartMenu = false;
     boolean exitSousMenu = false;
     Scanner eventUser = new Scanner(System.in);
+    DBConnection connect;
 
     public Menu() {
-
+        connect = new DBConnection();
     }
 
-    public void start() {
+    public void start() throws SQLException {
         displayBanner();
+        connect.getHeroes();
         displayStartMenu();
         while (!exitStartMenu) {
             if (getUserChoice() == 1) {
