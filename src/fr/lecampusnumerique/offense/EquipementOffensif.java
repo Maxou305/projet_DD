@@ -43,13 +43,13 @@ public abstract class EquipementOffensif implements Cell {
         this.usableBy = usableBy;
     }
 
-    public void interaction(Personnage player) {
+    public void interaction(Personnage pPlayer) {
         Scanner eventUser = new Scanner(System.in);
         System.out.println("Vous entrez dans la pièce et vous trouvez un " + name + " !\n" + this);
-        if (player.getType().equalsIgnoreCase(usableBy)) {
+        if (pPlayer.getType().equalsIgnoreCase(usableBy)) {
             System.out.println("Voulez-vous vous en équiper ?\n1 - Oui\n2 - Non");
             if (eventUser.nextInt() == 1) {
-                player.setOffensive(this);
+                pPlayer.setOffensive(this);
                 System.out.println("Ca y est, c'est équipé");
             }
             else {

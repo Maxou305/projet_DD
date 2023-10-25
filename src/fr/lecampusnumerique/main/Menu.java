@@ -70,18 +70,18 @@ public class Menu {
     /**
      * Cette méthode va créer et ECRASER le player déjà créé.
      */
-    public Personnage updatePlayer() {
+    public void updatePlayer() {
         System.out.println("Modifier nom : ");
         String newName = eventUser.nextLine();
         System.out.println("Modifier type : ");
         String newType = eventUser.nextLine();
         if (newType.equalsIgnoreCase("guerrier")) {
             System.out.println("Personnage modifié");
-            return player = new Guerrier(newName);
+            player = new Guerrier(newName);
 
         } else {
             System.out.println("Personnage modifié");
-            return player = new Magicien(newName);
+            player = new Magicien(newName);
         }
     }
 

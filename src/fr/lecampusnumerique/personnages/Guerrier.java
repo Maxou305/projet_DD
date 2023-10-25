@@ -17,6 +17,4 @@ public class Guerrier extends Personnage {
     public String getType() {
         return "Guerrier";
     }
-
-
 }

@@ -164,8 +164,8 @@ public class Game {
     // -------------------------------------- GESTION DE LA PARTIE --------------------------------------
 
     public void checkCase(Personnage pPlayer) {
-        Scanner eventUser = new Scanner(System.in);
         plateau.get(pPlayer.getPosPlayer()).interaction(pPlayer);
+        checkFightResult(pPlayer);
         endTurnChoice(pPlayer);
     }
 
@@ -183,7 +183,7 @@ public class Game {
         }
     }
 
-    public void checkSpecialConditions(Personnage pPlayer) {
+    public void checkFightResult(Personnage pPlayer) {
         if (pPlayer.isExitFight()) {
             checkCase(pPlayer);
             pPlayer.setExitFight(false);
@@ -211,7 +211,6 @@ public class Game {
         while (!winGame && pPlayer.getLife() > 0) {
             movePlayer(pPlayer);
             checkCase(pPlayer);
-            checkSpecialConditions(pPlayer);
         }
     }
 }

@@ -49,27 +49,23 @@ public abstract class Ennemi implements Cell {
         System.out.println("Alerte ! Vous avez rencontré un " + name + this);
         System.out.println("Que voulez-vous faire ?\n1 - Attaquer\n2 - Fuir");
         if (userChoice.nextInt() == 1) {
-            attack(pPlayer);
+            fight(pPlayer);
         } else {
             pPlayer.escape();
         }
     }
 
-    public void attack(Personnage pPlayer) {
+    public void fight(Personnage pPlayer) {
         Scanner userChoice = new Scanner(System.in);
         while (life > 0 && pPlayer.getLife() > 0 && !pPlayer.isWinFight() && !pPlayer.isExitFight()) {
-
             pPlayer.attack(this);
-
             if (life > 0) {
                 pPlayer.damaged(this);
                 if (pPlayer.getLife() < 0) {
                     System.out.println("Déso t'es mort...");
                     break;
                 }
-
                 System.out.println("Il vous reste " + pPlayer.getLife() + " HP, l'ennemi en a " + life + ". Que voulez-vous faire ?\n1 - Attaquer\n2 - Fuir");
-
                 if (userChoice.nextInt() == 2) {
                     int result = 1 + (int) (Math.random() * ((6 - 1) + 1));
                     pPlayer.setPosPlayer(pPlayer.getPosPlayer() - result);
