@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 public class Game {
     private final ArrayList<Cell> plateau;
+    private boolean winGame = false;
 
 
     /**
@@ -150,6 +151,14 @@ public class Game {
             pPlayer.setPosPlayer(126 - pPlayer.getPosPlayer());
             System.out.println("Tu vas trop loin, donc tu recules. T'es maintenant en case " + pPlayer.getPosPlayer() + ".");
         }
+        if (pPlayer.getPosPlayer() < 0) {
+            System.out.println("Ca commence mal... je te remets sur la case départ");
+            pPlayer.setPosPlayer(0);
+        }
+        if (pPlayer.getPosPlayer() == 63) {
+            System.out.println("OMG t'as fini !");
+            winGame = true;
+        }
     }
 
     // -------------------------------------- GESTION DE LA PARTIE --------------------------------------
@@ -157,9 +166,6 @@ public class Game {
     public void checkCase(Personnage pPlayer) {
         Scanner eventUser = new Scanner(System.in);
         plateau.get(pPlayer.getPosPlayer()).interaction(pPlayer);
-        if (pPlayer.getPosPlayer() == 63) {
-            System.out.println("OMG t'as fini !");
-        }
         endTurnChoice(pPlayer);
     }
 
@@ -202,7 +208,7 @@ public class Game {
 //        } catch (PersonnageHorsPlateauException e) {
 //            System.out.println("STOOOOOOOOOOOOOOP TU VAS TROP LOIN !!!!!!!!");
 //        }
-        while (pPlayer.getPosPlayer() < 64 && pPlayer.getPosPlayer() >= 0 && pPlayer.getLife() > 0) {
+        while (!winGame && pPlayer.getLife() > 0) {
             movePlayer(pPlayer);
             checkCase(pPlayer);
             checkSpecialConditions(pPlayer);

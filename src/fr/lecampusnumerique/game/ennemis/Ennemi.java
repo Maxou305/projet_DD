@@ -58,14 +58,18 @@ public abstract class Ennemi implements Cell {
     public void attack(Personnage pPlayer) {
         Scanner userChoice = new Scanner(System.in);
         while (life > 0 && pPlayer.getLife() > 0 && !pPlayer.isWinFight() && !pPlayer.isExitFight()) {
+
             pPlayer.attack(this);
+
             if (life > 0) {
                 pPlayer.damaged(this);
-                if (pPlayer.getLife() < 0){
+                if (pPlayer.getLife() < 0) {
                     System.out.println("Déso t'es mort...");
                     break;
                 }
+
                 System.out.println("Il vous reste " + pPlayer.getLife() + " HP, l'ennemi en a " + life + ". Que voulez-vous faire ?\n1 - Attaquer\n2 - Fuir");
+
                 if (userChoice.nextInt() == 2) {
                     int result = 1 + (int) (Math.random() * ((6 - 1) + 1));
                     pPlayer.setPosPlayer(pPlayer.getPosPlayer() - result);
@@ -76,7 +80,6 @@ public abstract class Ennemi implements Cell {
                 System.out.println("Bravo tu as éliminé l'ennemi ! Il te reste " + pPlayer.getLife() + " HP");
                 pPlayer.setWinFight(true);
             }
-            break;
         }
     }
 
