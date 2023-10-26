@@ -15,6 +15,6 @@ public class Guerrier extends Personnage {
 
     @Override
     public String getType() {
-        return "Guerrier";
+        return "guerrier";
     }
 }

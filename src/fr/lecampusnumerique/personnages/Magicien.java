@@ -14,6 +14,6 @@ public class Magicien extends Personnage {
     }
     @Override
     public String getType() {
-        return "Magicien";
+        return "magicien";
     }
 }

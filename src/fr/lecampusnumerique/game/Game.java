@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    private final ArrayList<Cell> plateau;
+    private final ArrayList<iCell> plateau;
     private boolean winGame = false;
 
     /**

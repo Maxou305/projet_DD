@@ -1,12 +1,12 @@
 package fr.lecampusnumerique.game.ennemis;
 
-import fr.lecampusnumerique.game.Cell;
+import fr.lecampusnumerique.game.iCell;
 import fr.lecampusnumerique.personnages.Personnage;
 
 import java.util.Scanner;
 
 
-public abstract class Ennemi implements Cell {
+public abstract class Ennemi implements iCell {
     private int life;
     private int attack;
     private String name;
@@ -77,6 +77,7 @@ public abstract class Ennemi implements Cell {
                 pPlayer.setWinFight(true);
             }
         }
+
     }
 
     @Override

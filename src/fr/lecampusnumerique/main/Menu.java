@@ -16,29 +16,29 @@ public class Menu {
     boolean exitStartMenu = false;
     boolean exitSousMenu = false;
     Scanner eventUser = new Scanner(System.in);
-    ConnexionBDD connect;
+    ConnexionBDD myDB;
 
-    public Menu() {
-        connect = new ConnexionBDD();
+    public Menu() throws SQLException {
+        myDB = new ConnexionBDD();
     }
 
     public void start() throws SQLException {
         displayBanner();
-        connect.getHeroes();
-        displayStartMenu();
         while (!exitStartMenu) {
-            if (getUserChoice() == 1) {
-                player = createNewPlayer();
+            displayStartMenu();
+            int startMenuChoice = getUserChoice();
+            if (startMenuChoice == 1) {
+                myDB.createHero();
                 while (!exitSousMenu) {
                     displaySousMenu();
-                    int choice = getUserChoice();
-                    if (choice == 1) {
+                    int sousMenuChoice = getUserChoice();
+                    if (sousMenuChoice == 1) {
                         player.displayStats();
                     }
-                    if (choice == 2) {
-                        updatePlayer();
+                    if (sousMenuChoice == 2) {
+                        myDB.editHero();
                     }
-                    if (choice == 3) {
+                    if (sousMenuChoice == 3) {
                         exitSousMenu = true;
                         newGame = new Game(player);
                         newGame.playGame(player);
@@ -46,27 +46,16 @@ public class Menu {
                     }
                     quit();
                 }
-            } else {
+            }
+            if (startMenuChoice == 2) {
+                myDB.getHeroes();
+            }
+            if (startMenuChoice == 3) {
+                myDB.editHero();
+            }
+            if (startMenuChoice == 4) {
                 quit();
             }
-        }
-    }
-
-    public Personnage createNewPlayer() {
-        // récupération des entrées user
-        System.out.println("Entrez le nom du personnage : ");
-        String pName = eventUser.nextLine();
-        System.out.println("Entrez la classe : ");
-        String pType = eventUser.nextLine();
-        // création perso en fonction du type
-        if (pType.equalsIgnoreCase("guerrier")) {
-            player = new Guerrier(pName);
-            System.out.println("Personnage créé");
-            return player;
-        } else {
-            player = new Magicien(pName);
-            System.out.println("Personnage créé");
-            return player;
         }
     }
 
@@ -91,7 +80,7 @@ public class Menu {
     /**
      * Permet de récupérer le choix du joueur dans le menu (int uniquement)
      *
-     * @return
+     * @return la demande du menu (int)
      */
     public int getUserChoice() {
         Scanner newEventUser = new Scanner(System.in);
@@ -110,7 +99,8 @@ public class Menu {
     }
 
     public void displayStartMenu() {
-        System.out.println("Que voulez-vous faire ?\n1 - Créer un nouveau joueur\n2 - Quitter");
+        System.out.println("----------------------------------------------------------------------------");
+        System.out.println("Que voulez-vous faire ?\n1 - Créer un nouveau joueur\n2 - Afficher les joueurs\n3 - Modifier un joueur\n4 - Quitter");
         System.out.println("----------------------------------------------------------------------------");
     }
 
@@ -127,7 +117,7 @@ public class Menu {
         exitStartMenu = true;
     }
 
-    public void endGame() {
+    public void endGame() throws SQLException {
         System.out.println("Que voulez-vous faire ?\n1 - Recommencer une partie\n2 - Quitter");
         int choice = getUserChoice();
         if (choice == 1) {
@@ -137,7 +127,7 @@ public class Menu {
                 player.setLife(player.getStartLife());
                 player.setOffensive(player.getType().equalsIgnoreCase("guerrier") ? new Arme() : new Sort());
             } else {
-                createNewPlayer();
+                myDB.createHero();
             }
             newGame = new Game(player);
             newGame.playGame(player);

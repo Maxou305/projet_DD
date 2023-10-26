@@ -2,7 +2,7 @@ package fr.lecampusnumerique.game;
 
 import fr.lecampusnumerique.personnages.*;
 
-public class CellVide implements Cell {
+public class CellVide implements iCell {
 
     @Override
     public void interaction(Personnage player) {

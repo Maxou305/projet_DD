@@ -1,9 +1,9 @@
 package fr.lecampusnumerique.game.potions;
 
-import fr.lecampusnumerique.game.Cell;
+import fr.lecampusnumerique.game.iCell;
 import fr.lecampusnumerique.personnages.Personnage;
 
-public abstract class Potion implements Cell {
+public abstract class Potion implements iCell {
     String name;
     int heal;
 
