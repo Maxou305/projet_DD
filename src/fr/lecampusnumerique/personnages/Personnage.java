@@ -5,6 +5,7 @@ import fr.lecampusnumerique.offense.EquipementOffensif;
 import fr.lecampusnumerique.game.ennemis.Ennemi;
 
 public abstract class Personnage {
+    private int id;
     private String name;
     private int life;
     private int startLife;
@@ -22,7 +23,7 @@ public abstract class Personnage {
 
     // ----- METHODES ------------------------------------------------------------------------------------
     public void heal(int healing) {
-        life = life + healing;
+        life += healing;
     }
 
     public void attack(Ennemi pEnnemi) {
@@ -127,6 +128,14 @@ public abstract class Personnage {
 
     public void setExitFight(boolean exitFight) {
         this.exitFight = exitFight;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

@@ -18,8 +18,12 @@ public class Menu {
     Scanner eventUser = new Scanner(System.in);
     ConnexionBDD myDB;
 
-    public Menu() throws SQLException {
+    public Menu() {
         myDB = new ConnexionBDD();
+        boolean bddConnected = myDB.Connect();
+        if (bddConnected) {
+            // Do something
+        }
     }
 
     public void start() throws SQLException {
@@ -28,7 +32,7 @@ public class Menu {
             displayStartMenu();
             int startMenuChoice = getUserChoice();
             if (startMenuChoice == 1) {
-                myDB.createHero();
+                createNewPlayer();
                 while (!exitSousMenu) {
                     displaySousMenu();
                     int sousMenuChoice = getUserChoice();
@@ -36,7 +40,7 @@ public class Menu {
                         player.displayStats();
                     }
                     if (sousMenuChoice == 2) {
-                        myDB.editHero();
+                        myDB.editHero(player);
                     }
                     if (sousMenuChoice == 3) {
                         exitSousMenu = true;
@@ -51,7 +55,7 @@ public class Menu {
                 myDB.getHeroes();
             }
             if (startMenuChoice == 3) {
-                myDB.editHero();
+                editPlayer();
             }
             if (startMenuChoice == 4) {
                 quit();
@@ -85,6 +89,54 @@ public class Menu {
     public int getUserChoice() {
         Scanner newEventUser = new Scanner(System.in);
         return newEventUser.nextInt();
+    }
+
+    public void createNewPlayer() throws SQLException {
+        // récupération des entrées user
+        System.out.println("Entrez le nom du personnage : ");
+        String pName = eventUser.nextLine();
+        System.out.println("Entrez la classe : ");
+        String pType = eventUser.nextLine();
+        // création perso en fonction du type
+        if (pType.equalsIgnoreCase("guerrier")) {
+            player = new Guerrier(pName);
+            System.out.println("Personnage créé");
+        } else {
+            player = new Magicien(pName);
+            System.out.println("Personnage créé");
+        }
+        // "upload" dans la BDD
+        myDB.createHero(player);
+    }
+
+    public void editPlayer() throws SQLException {
+        boolean playerUpdated = false;
+
+        myDB.getHeroesID();
+
+        System.out.println("Quel héros veux-tu modifier ?");
+        int userChoice = eventUser.nextInt();
+
+        System.out.println("Entrez le nouveau nom :");
+        String newName = eventUser.next();
+        System.out.println("Entrez la nouvelle classe :");
+        String newType = eventUser.next().toLowerCase();
+
+        while (!playerUpdated) {
+            if (newType.equalsIgnoreCase("guerrier")) {
+                player = new Guerrier(newName);
+            }
+            if (newType.equalsIgnoreCase("magicien")) {
+                player = new Magicien(newName);
+            }
+            player.setId(userChoice);
+            try {
+                myDB.editHero(player);
+                playerUpdated = true;
+            } catch (SQLException e) {
+                System.out.println("Erreur dans l'appel de editPlayer");
+            }
+        }
     }
 
     // ----- PARTIE GRAPHIQUE ------------------------------------------------------------------------------------
@@ -127,7 +179,7 @@ public class Menu {
                 player.setLife(player.getStartLife());
                 player.setOffensive(player.getType().equalsIgnoreCase("guerrier") ? new Arme() : new Sort());
             } else {
-                myDB.createHero();
+                myDB.createHero(player);
             }
             newGame = new Game(player);
             newGame.playGame(player);
