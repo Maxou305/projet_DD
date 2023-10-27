@@ -42,6 +42,11 @@ public abstract class Personnage {
         exitFight = true;
     }
 
+    public void moveBack(){
+        posPlayer = 126 - posPlayer;
+        System.out.println("STOOOOOOOOOOOOOOOOOP ! Tu vas trop loin !!!!! Tu recules à la " + posPlayer);
+    }
+
     public void displayStats() {
         System.out.println(this);
     }

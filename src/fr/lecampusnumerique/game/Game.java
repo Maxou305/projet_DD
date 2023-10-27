@@ -33,6 +33,7 @@ public class Game {
      * Méthode permettant de gérer le lancer de dé. Construit grâce à un random compris en tre 1 et 6.
      *
      * @return valeur du jet de dés.
+     * @see <a href="www.google.com">Java Dcoumentation</a>
      */
     public int jetDados() {
         return 1 + (int) (Math.random() * ((6 - 1) + 1));
@@ -150,13 +151,12 @@ public class Game {
      *
      * @param pPlayer joueur devant se déplacer
      */
-    public void movePlayer(Personnage pPlayer) {
+    public void movePlayer(Personnage pPlayer) throws PersonnageHorsPlateauException {
         int result = jetDados();
         pPlayer.setPosPlayer(pPlayer.getPosPlayer() + result);
         System.out.println("Vous avez fait " + result + " et avancé sur la case " + pPlayer.getPosPlayer());
         if (pPlayer.getPosPlayer() > 63) {
-            pPlayer.setPosPlayer(126 - pPlayer.getPosPlayer());
-            System.out.println("Tu vas trop loin, donc tu recules. T'es maintenant en case " + pPlayer.getPosPlayer() + ".");
+           throw new PersonnageHorsPlateauException();
         }
         if (pPlayer.getPosPlayer() < 0) {
             System.out.println("Ca commence mal... je te remets sur la case départ");
@@ -209,8 +209,8 @@ public class Game {
      */
     public void checkFightResult(Personnage pPlayer) {
         if (pPlayer.isExitFight()) {
-            checkCase(pPlayer);
             pPlayer.setExitFight(false);
+            checkCase(pPlayer);
         }
         if (pPlayer.isWinFight()) {
             plateau.set(pPlayer.getPosPlayer(), new CellCadavre());
@@ -221,19 +221,14 @@ public class Game {
     /**
      * Permet de jouer au jeu. Le joueur se déplace puis il y a une vérification de case tant que la partie n'est pas gagnée et tant que le joueur a encore des points de vie.
      */
-    public void playGame(Personnage pPlayer) {
-        // test de la méthode et renvoie d'erreur si besoin
-//        try {
-//            while (pPlayer.getPosPlayer() < 64 && pPlayer.getPosPlayer() >= 0) {
-//                movePlayer(pPlayer);
-//                checkCase(pPlayer);
-//                checkSpecialConditions(pPlayer);
-//            }
-//        } catch (PersonnageHorsPlateauException e) {
-//            System.out.println("STOOOOOOOOOOOOOOP TU VAS TROP LOIN !!!!!!!!");
-//        }
+    public void playGame(Personnage pPlayer) throws PersonnageHorsPlateauException {
+//         test de la méthode et renvoie d'erreur si besoin
         while (!winGame && pPlayer.getLife() > 0) {
-            movePlayer(pPlayer);
+            try {
+                movePlayer(pPlayer);
+            } catch (PersonnageHorsPlateauException e) {
+                pPlayer.moveBack();
+            }
             checkCase(pPlayer);
         }
     }

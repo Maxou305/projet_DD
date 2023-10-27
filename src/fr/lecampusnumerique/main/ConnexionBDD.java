@@ -1,10 +1,7 @@
 package fr.lecampusnumerique.main;
 
-import fr.lecampusnumerique.personnages.Guerrier;
-import fr.lecampusnumerique.personnages.Magicien;
 import fr.lecampusnumerique.personnages.Personnage;
 
-import javax.xml.namespace.QName;
 import java.sql.*;  // pour les programmes standards de JDBC
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -29,7 +26,7 @@ public class ConnexionBDD {
      *
      * @throws SQLException renvoie une erreur si la requête SQL n'est pas passée.
      */
-    public void getHeroes() throws SQLException {
+    public void displayHeroes() throws SQLException {
         Statement stmt = conMyDB.createStatement(); // objet Statement permettant d'initialiser un statement pour la future requête SQL.
         ResultSet rs = stmt.executeQuery("SELECT * FROM Hero"); // objet ResultSet tableau dont les colonnes sont celles qui ont été extraites par notre requête SQL, et dont les lignes sont les résultats de cette requête.
         while (rs.next()) { // .next() pour les ResultSet permet de passer à la ligne suivante et donc d'itérer la table récupérée.
@@ -43,7 +40,7 @@ public class ConnexionBDD {
         }
     }
 
-    public void getHeroesID() throws SQLException {
+    public void displayHeroesID() throws SQLException {
         Statement stmt = conMyDB.createStatement(); // objet Statement permettant d'initialiser un statement pour la future requête SQL.
         ResultSet rs = stmt.executeQuery("SELECT * FROM Hero");
         while (rs.next()) {
@@ -51,27 +48,47 @@ public class ConnexionBDD {
         }
     }
 
+    public ResultSet getHeroByID(int pUserChoice) throws SQLException {
+        int userChoice = pUserChoice;
+        String sql = "SELECT * FROM hero WHERE id = ?";
+        ResultSet rs = null;
+        try {
+            PreparedStatement stmt = conMyDB.prepareStatement(sql);
+            stmt.setInt(1, userChoice);
+            rs = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        System.out.println("C'EST RENTRE DEDANS OMG");
+        return rs;
+    }
+
     public void createHero(Personnage pPlayer) throws SQLException {
-        String sql = "INSERT INTO hero(type, name, life, strength, offensive, defensive) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement stmt = conMyDB.prepareStatement(sql);
-        stmt.setString(1, pPlayer.getType());
-        stmt.setString(2, pPlayer.getName());
-        stmt.setInt(3, pPlayer.getLife());
-        stmt.setInt(4, pPlayer.getStrength());
-        stmt.setString(5, pPlayer.getOffensive().getName());
-        stmt.setString(6, pPlayer.getDefensive().getName());
-        stmt.executeUpdate();
+        try {
+            String sql = "INSERT INTO hero(type, name, life, strength, offensive, defensive) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conMyDB.prepareStatement(sql);
+            stmt.setString(1, pPlayer.getType());
+            stmt.setString(2, pPlayer.getName());
+            stmt.setInt(3, pPlayer.getLife());
+            stmt.setInt(4, pPlayer.getStrength());
+            stmt.setString(5, pPlayer.getOffensive().getName());
+            stmt.setString(6, pPlayer.getDefensive().getName());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.getMessage();
+        }
     }
 
     /**
-     * Permet de modifier n'importe quel personnage présent dans la BDD. La méthode utilise la méthode getHeroesID() puis créé un nouveau personnage temporaire en fonction du type choisi.
+     * Permet de modifier n'importe quel personnage présent dans la BDD.
+     * La méthode utilise la méthode displayHeroesID() puis crée un nouveau personnage temporaire en fonction du type choisi.
      * Les données du personnage temporaire sont ensuite récupérées et remplacées dans la BDD.
      *
      * @throws SQLException renvoie une exception qsi la commande SQL ne passe pas.
      */
-    public void editHero(Personnage pPlayer) throws SQLException {
-        PreparedStatement stmt = conMyDB.prepareStatement("UPDATE hero SET name = ?, life = ?, type = ?, strength = ?, offensive = ?, defensive = ? WHERE id = ?");
+    public void editHero(Personnage pPlayer) throws SQLException, InputMismatchException {
         try {
+            PreparedStatement stmt = conMyDB.prepareStatement("UPDATE hero SET name = ?, life = ?, type = ?, strength = ?, offensive = ?, defensive = ? WHERE id = ?");
             stmt.setString(1, pPlayer.getName());
             stmt.setInt(2, pPlayer.getLife());
             stmt.setString(3, pPlayer.getType());
@@ -82,13 +99,37 @@ public class ConnexionBDD {
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Problème dans l'update du nom");
+            System.out.println(e.getMessage());
         } catch (InputMismatchException e) {
             System.out.println("Problème : tu t'es trompé de type d'input !");
         }
         System.out.println("-------------------\nPersonnage modifié\n-------------------");
     }
+    public void saveHero(Personnage pPlayer) throws SQLException {
+        try {
+            PreparedStatement stmt = conMyDB.prepareStatement("UPDATE hero SET name = ?, life = ?, type = ?, strength = ?, offensive = ?, defensive = ? WHERE id = ?");
+            stmt.setString(1, pPlayer.getName());
+            stmt.setInt(2, pPlayer.getLife());
+            stmt.setString(3, pPlayer.getType());
+            stmt.setInt(4, pPlayer.getStrength());
+            stmt.setString(5, pPlayer.getOffensive().getName());
+            stmt.setString(6, pPlayer.getDefensive().getName());
+            stmt.setInt(7, pPlayer.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Problème dans l'update de la vie : " + e.getMessage() + e.getMessage());
+        }
+        System.out.println("-------------------\nPersonnage sauvegardé\n-------------------");
+    }
 
-    public void changeLifePoints() {
-
+    public void changeLifePoints(Personnage pPlayer) {
+        try {
+            PreparedStatement stmt = conMyDB.prepareStatement("UPDATE hero SET life = ? WHERE id = ?");
+            stmt.setInt(1, pPlayer.getLife());
+            stmt.setInt(2, pPlayer.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Problème dans l'update de la vie : " + e.getMessage());
+        }
     }
 }

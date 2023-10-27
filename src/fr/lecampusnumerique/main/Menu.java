@@ -1,12 +1,18 @@
 package fr.lecampusnumerique.main;
 
+import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
 import fr.lecampusnumerique.game.Game;
 import fr.lecampusnumerique.offense.guerrier.Arme;
+import fr.lecampusnumerique.offense.guerrier.Epee;
+import fr.lecampusnumerique.offense.guerrier.Massue;
+import fr.lecampusnumerique.offense.magicien.BouleDeFeu;
+import fr.lecampusnumerique.offense.magicien.Eclair;
 import fr.lecampusnumerique.offense.magicien.Sort;
 import fr.lecampusnumerique.personnages.Guerrier;
 import fr.lecampusnumerique.personnages.Magicien;
 import fr.lecampusnumerique.personnages.Personnage;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -26,7 +32,7 @@ public class Menu {
         }
     }
 
-    public void start() throws SQLException {
+    public void start() throws SQLException, PersonnageHorsPlateauException {
         displayBanner();
         while (!exitStartMenu) {
             displayStartMenu();
@@ -40,6 +46,7 @@ public class Menu {
                         player.displayStats();
                     }
                     if (sousMenuChoice == 2) {
+                        updatePlayer();
                         myDB.editHero(player);
                     }
                     if (sousMenuChoice == 3) {
@@ -52,12 +59,18 @@ public class Menu {
                 }
             }
             if (startMenuChoice == 2) {
-                myDB.getHeroes();
+                myDB.displayHeroes();
             }
             if (startMenuChoice == 3) {
                 editPlayer();
             }
             if (startMenuChoice == 4) {
+                chooseExistantPlayer();
+                newGame = new Game(player);
+                newGame.playGame(player);
+                endGame();
+            }
+            if (startMenuChoice == 5) {
                 quit();
             }
         }
@@ -109,10 +122,51 @@ public class Menu {
         myDB.createHero(player);
     }
 
+    public void chooseExistantPlayer() throws SQLException {
+        boolean chosenPlayerState = false;
+        while (!chosenPlayerState) {
+            try {
+                myDB.displayHeroesID();
+                System.out.println("Quel héros veux-tu ?");
+                chosenPlayerState = true;
+            } catch (SQLException e) {
+            }
+        }
+        int userChoice = eventUser.nextInt();
+        try {
+            ResultSet chosenPlayer = myDB.getHeroByID(userChoice);
+            while (chosenPlayer.next()) {
+
+                if (chosenPlayer.getString("type").equalsIgnoreCase("guerrier")) {
+                    player = new Guerrier(chosenPlayer.getString("name"));
+                    player.setLife(chosenPlayer.getInt("life"));
+                    if (chosenPlayer.getString("offensive").equalsIgnoreCase("Gourdin")) {
+                        player.setOffensive(new Massue());
+                    }
+                    if (chosenPlayer.getString("offensive").equalsIgnoreCase("Excalibur")) {
+                        player.setOffensive(new Epee());
+                    }
+                } else if (chosenPlayer.getString("type").equalsIgnoreCase("magicien")) {
+                    player = new Magicien(chosenPlayer.getString("name"));
+                    player.setLife(chosenPlayer.getInt("life"));
+                    if (chosenPlayer.getString("offensive").equalsIgnoreCase("Pika Pika")) {
+                        player.setOffensive(new Eclair());
+                    }
+                    if (chosenPlayer.getString("offensive").equalsIgnoreCase("Resto mexicain trop épicé")) {
+                        player.setOffensive(new BouleDeFeu());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Le truc a pas chargé");
+        }
+        System.out.println("-------------------\nPersonnage chargé\n-------------------");
+    }
+
     public void editPlayer() throws SQLException {
         boolean playerUpdated = false;
 
-        myDB.getHeroesID();
+        myDB.displayHeroesID();
 
         System.out.println("Quel héros veux-tu modifier ?");
         int userChoice = eventUser.nextInt();
@@ -130,12 +184,8 @@ public class Menu {
                 player = new Magicien(newName);
             }
             player.setId(userChoice);
-            try {
-                myDB.editHero(player);
-                playerUpdated = true;
-            } catch (SQLException e) {
-                System.out.println("Erreur dans l'appel de editPlayer");
-            }
+            myDB.editHero(player);
+            playerUpdated = true;
         }
     }
 
@@ -152,7 +202,7 @@ public class Menu {
 
     public void displayStartMenu() {
         System.out.println("----------------------------------------------------------------------------");
-        System.out.println("Que voulez-vous faire ?\n1 - Créer un nouveau joueur\n2 - Afficher les joueurs\n3 - Modifier un joueur\n4 - Quitter");
+        System.out.println("Que voulez-vous faire ?\n1 - Créer un nouveau joueur\n2 - Afficher les joueurs\n3 - Modifier un joueur\n4 - Choisir un joueur existant\n5 - Quitter");
         System.out.println("----------------------------------------------------------------------------");
     }
 
@@ -169,7 +219,7 @@ public class Menu {
         exitStartMenu = true;
     }
 
-    public void endGame() throws SQLException {
+    public void endGame() throws SQLException, PersonnageHorsPlateauException {
         System.out.println("Que voulez-vous faire ?\n1 - Recommencer une partie\n2 - Quitter");
         int choice = getUserChoice();
         if (choice == 1) {
