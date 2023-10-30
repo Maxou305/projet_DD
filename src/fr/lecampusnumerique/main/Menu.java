@@ -130,13 +130,13 @@ public class Menu {
                 System.out.println("Quel héros veux-tu ?");
                 chosenPlayerState = true;
             } catch (SQLException e) {
+                System.out.println("Ce héros n'existe pas !");
             }
         }
         int userChoice = eventUser.nextInt();
         try {
             ResultSet chosenPlayer = myDB.getHeroByID(userChoice);
             while (chosenPlayer.next()) {
-
                 if (chosenPlayer.getString("type").equalsIgnoreCase("guerrier")) {
                     player = new Guerrier(chosenPlayer.getString("name"));
                     player.setLife(chosenPlayer.getInt("life"));
