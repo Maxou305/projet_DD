@@ -41,20 +41,23 @@ public class Controller {
                 case 4 -> {
                     chooseExistantPlayer();
                     stop = true;
-//            case 5 -> quit();
                 }
+//              case 5 -> quit();
             }
         }
-
-
-//        while (!stop2)
-//            switch (menu.sousMenu()) {
-//                case 1 -> player.displayStats();
-//                case 2 -> newGame = new Game(player);
-//                newGame.startGame();
-//            }
+        while (!stop2)
+            switch (menu.sousMenu()) {
+                case 1 -> player.displayStats();
+                case 2 -> updatePlayer();
+                case 3 -> {
+                    startGame();
+                }
+//              case 4 -> quit();
+            }
 
     }
+
+    // ----------------- PLAYER ---------------------------------------------------------------
 
     protected void createNewPlayer() {
         String[] newPlayerData = menu.createNewPlayerMenu();
@@ -110,4 +113,12 @@ public class Controller {
             System.out.println("Le truc a pas chargé");
         }
     }
+
+    // ----------------- GAME ---------------------------------------------------------------
+    public void startGame(){
+        newGame = new Game(player);
+    }
+
+
+
 }
