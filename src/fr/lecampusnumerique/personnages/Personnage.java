@@ -1,7 +1,7 @@
 package fr.lecampusnumerique.personnages;
 
-import fr.lecampusnumerique.defense.EquipementDefensif;
-import fr.lecampusnumerique.offense.EquipementOffensif;
+import fr.lecampusnumerique.equipements.defense.EquipementDefensif;
+import fr.lecampusnumerique.equipements.offense.EquipementOffensif;
 import fr.lecampusnumerique.game.ennemis.Ennemi;
 
 public abstract class Personnage {
@@ -46,6 +46,8 @@ public abstract class Personnage {
         posPlayer = 126 - posPlayer;
         System.out.println("STOOOOOOOOOOOOOOOOOP ! Tu vas trop loin !!!!! Tu recules à la " + posPlayer);
     }
+
+
 
     public void displayStats() {
         System.out.println(this);

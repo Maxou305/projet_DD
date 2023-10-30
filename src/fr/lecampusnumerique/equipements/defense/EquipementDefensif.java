@@ -1,4 +1,4 @@
-package fr.lecampusnumerique.defense;
+package fr.lecampusnumerique.equipements.defense;
 
 public abstract class EquipementDefensif {
     private int value;

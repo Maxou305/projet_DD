@@ -1,4 +1,4 @@
-package fr.lecampusnumerique.offense.guerrier;
+package fr.lecampusnumerique.equipements.offense.guerrier;
 
 public class Epee extends Arme {
     public Epee(){

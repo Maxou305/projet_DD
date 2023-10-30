@@ -1,4 +1,4 @@
-package fr.lecampusnumerique.offense;
+package fr.lecampusnumerique.equipements.offense;
 
 import fr.lecampusnumerique.game.iCell;
 import fr.lecampusnumerique.personnages.Personnage;

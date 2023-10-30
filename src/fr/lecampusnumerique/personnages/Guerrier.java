@@ -1,7 +1,7 @@
 package fr.lecampusnumerique.personnages;
 
-import fr.lecampusnumerique.defense.Bouclier;
-import fr.lecampusnumerique.offense.guerrier.Arme;
+import fr.lecampusnumerique.equipements.defense.Bouclier;
+import fr.lecampusnumerique.equipements.offense.guerrier.Arme;
 
 public class Guerrier extends Personnage {
     public Guerrier(String pPlayerName) {

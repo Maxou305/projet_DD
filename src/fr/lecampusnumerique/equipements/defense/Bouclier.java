@@ -1,4 +1,4 @@
-package fr.lecampusnumerique.defense;
+package fr.lecampusnumerique.equipements.defense;
 
 public class Bouclier extends EquipementDefensif {
     public Bouclier(String pName) {

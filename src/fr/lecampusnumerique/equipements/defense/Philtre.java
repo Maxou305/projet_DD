@@ -1,4 +1,4 @@
-package fr.lecampusnumerique.defense;
+package fr.lecampusnumerique.equipements.defense;
 
 public class Philtre extends EquipementDefensif {
     public Philtre(String pName) {

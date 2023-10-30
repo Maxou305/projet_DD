@@ -1,6 +1,6 @@
-package fr.lecampusnumerique.offense.guerrier;
+package fr.lecampusnumerique.equipements.offense.guerrier;
 
-import fr.lecampusnumerique.offense.EquipementOffensif;
+import fr.lecampusnumerique.equipements.offense.EquipementOffensif;
 
 public class Arme extends EquipementOffensif {
     public Arme(String pName) {

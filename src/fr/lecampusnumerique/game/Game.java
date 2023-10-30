@@ -6,10 +6,10 @@ import fr.lecampusnumerique.game.ennemis.Gobelin;
 import fr.lecampusnumerique.game.ennemis.Sorcier;
 import fr.lecampusnumerique.game.potions.PopoBig;
 import fr.lecampusnumerique.game.potions.PopoMini;
-import fr.lecampusnumerique.offense.guerrier.Epee;
-import fr.lecampusnumerique.offense.guerrier.Massue;
-import fr.lecampusnumerique.offense.magicien.BouleDeFeu;
-import fr.lecampusnumerique.offense.magicien.Eclair;
+import fr.lecampusnumerique.equipements.offense.guerrier.Epee;
+import fr.lecampusnumerique.equipements.offense.guerrier.Massue;
+import fr.lecampusnumerique.equipements.offense.magicien.BouleDeFeu;
+import fr.lecampusnumerique.equipements.offense.magicien.Eclair;
 import fr.lecampusnumerique.personnages.Personnage;
 
 import java.util.ArrayList;

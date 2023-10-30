@@ -1,6 +1,6 @@
-package fr.lecampusnumerique.offense.magicien;
+package fr.lecampusnumerique.equipements.offense.magicien;
 
-import fr.lecampusnumerique.offense.EquipementOffensif;
+import fr.lecampusnumerique.equipements.offense.EquipementOffensif;
 
 public class Sort extends EquipementOffensif {
     public Sort(String pName) {

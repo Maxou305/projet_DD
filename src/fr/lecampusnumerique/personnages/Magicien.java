@@ -1,7 +1,7 @@
 package fr.lecampusnumerique.personnages;
 
-import fr.lecampusnumerique.defense.Philtre;
-import fr.lecampusnumerique.offense.magicien.Sort;
+import fr.lecampusnumerique.equipements.defense.Philtre;
+import fr.lecampusnumerique.equipements.offense.magicien.Sort;
 
 public class Magicien extends Personnage {
     public Magicien(String pName){

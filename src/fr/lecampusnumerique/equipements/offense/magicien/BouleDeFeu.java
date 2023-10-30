@@ -1,4 +1,4 @@
-package fr.lecampusnumerique.offense.magicien;
+package fr.lecampusnumerique.equipements.offense.magicien;
 
 public class BouleDeFeu extends Sort {
     public BouleDeFeu() {
