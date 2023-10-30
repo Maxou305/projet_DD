@@ -2,6 +2,6 @@ package fr.lecampusnumerique.game;
 
 import fr.lecampusnumerique.personnages.Personnage;
 
-public interface Cell {
+public interface iCell {
     public void interaction(Personnage player);
 }
