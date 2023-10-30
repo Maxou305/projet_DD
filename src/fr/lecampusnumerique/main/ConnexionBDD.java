@@ -127,7 +127,7 @@ public class ConnexionBDD {
         }
         System.out.println("-------------------\nPersonnage modifié\n-------------------");
     }
-    public void saveHero(Personnage pPlayer) throws SQLException {
+    public void saveHeroInDB(Personnage pPlayer) throws SQLException {
         try {
             PreparedStatement stmt = conMyDB.prepareStatement("UPDATE hero SET name = ?, life = ?, type = ?, strength = ?, offensive = ?, defensive = ? WHERE id = ?");
             stmt.setString(1, pPlayer.getName());
@@ -139,7 +139,7 @@ public class ConnexionBDD {
             stmt.setInt(7, pPlayer.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Problème dans l'update de la vie : " + e.getMessage() + e.getMessage());
+            System.out.println("Problème dans la save du héros : " + e.getMessage());
         }
         System.out.println("-------------------\nPersonnage sauvegardé\n-------------------");
     }
