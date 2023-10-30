@@ -83,6 +83,8 @@ public class ConnexionBDD {
         return rs;
     }
 
+
+
     public void createHero(Personnage pPlayer) throws SQLException {
         try {
             String sql = "INSERT INTO hero(type, name, life, strength, offensive, defensive) VALUES (?, ?, ?, ?, ?, ?)";
