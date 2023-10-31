@@ -11,7 +11,7 @@ public abstract class Personnage {
     private int startLife;
     private int hpMax;
     private int strength;
-    private int posPlayer;
+    private int position;
     boolean exitFight = false;
     boolean winFight = false;
     private EquipementOffensif offensive;
@@ -36,18 +36,15 @@ public abstract class Personnage {
     }
 
     public void escape() {
-        int result = 1 + (int) (Math.random() * ((6 - 1) + 1));
-        posPlayer -= result;
-        System.out.println("OK tu fuis, pas de bashing. Mais tu recules quand même de " + result + " cases. T'es maintenant sur la case " + posPlayer);
+        position -= 2;
+        System.out.println("OK tu fuis, pas de bashing. Mais tu recules quand même de 2 cases. T'es maintenant sur la case " + position);
         exitFight = true;
     }
 
     public void moveBack(){
-        posPlayer = 126 - posPlayer;
-        System.out.println("STOOOOOOOOOOOOOOOOOP ! Tu vas trop loin !!!!! Tu recules à la " + posPlayer);
+        position = 126 - position;
+        System.out.println("STOOOOOOOOOOOOOOOOOP ! Tu vas trop loin !!!!! Tu recules à la case" + position);
     }
-
-
 
     public void displayStats() {
         System.out.println(this);
@@ -121,12 +118,12 @@ public abstract class Personnage {
         this.defensive = defensive;
     }
 
-    public int getPosPlayer() {
-        return posPlayer;
+    public int getPosition() {
+        return position;
     }
 
-    public void setPosPlayer(int position) {
-        this.posPlayer = position;
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public boolean isExitFight() {

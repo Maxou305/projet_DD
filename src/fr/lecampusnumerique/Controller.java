@@ -1,10 +1,13 @@
 package fr.lecampusnumerique;
 
+import fr.lecampusnumerique.equipements.offense.guerrier.Arme;
 import fr.lecampusnumerique.equipements.offense.guerrier.Epee;
 import fr.lecampusnumerique.equipements.offense.guerrier.Massue;
 import fr.lecampusnumerique.equipements.offense.magicien.BouleDeFeu;
 import fr.lecampusnumerique.equipements.offense.magicien.Eclair;
+import fr.lecampusnumerique.equipements.offense.magicien.Sort;
 import fr.lecampusnumerique.exceptions.MauvaisChoixUtilisateur;
+import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
 import fr.lecampusnumerique.game.Game;
 import fr.lecampusnumerique.main.ConnexionBDD;
 import fr.lecampusnumerique.personnages.Guerrier;
@@ -17,6 +20,8 @@ import java.sql.SQLException;
 
 public class Controller {
     protected Menu menu;
+    boolean exitStartMenu = false;
+    boolean exitSousMenu = false;
     protected Game newGame;
     protected Personnage player;
     protected ConnexionBDD myDB = new ConnexionBDD();
@@ -26,49 +31,53 @@ public class Controller {
         myDB.Connect();
     }
 
-    public void start() throws SQLException {
+    public void start() throws SQLException, PersonnageHorsPlateauException, MauvaisChoixUtilisateur {
         menu.displayBanner();
-        boolean stop = false;
-        boolean stop2 = false;
-        while (!stop) {
+        while (!exitStartMenu) {
             switch (menu.startMenu()) {
                 case 1 -> {
                     createNewPlayer();
-                    stop = true;
+                    quitStartMenu();
                 }
                 case 2 -> displayAllPlayers();
                 case 3 -> updatePlayer();
                 case 4 -> {
                     chooseExistantPlayer();
-                    stop = true;
+                    quitStartMenu();
                 }
-//              case 5 -> quit();
+                case 5 -> quitGame();
+                default -> throw new MauvaisChoixUtilisateur();
             }
         }
-        while (!stop2)
+        while (!exitSousMenu) {
             switch (menu.sousMenu()) {
                 case 1 -> player.displayStats();
                 case 2 -> updatePlayer();
                 case 3 -> {
                     startGame();
+                    endGame();
                 }
-//              case 4 -> quit();
+                case 4 -> start();
+                case 5 -> {
+                    exitStartMenu = false;
+                    quitSousMenu();
+                }
             }
-
+        }
     }
 
     // ----------------- PLAYER ---------------------------------------------------------------
 
-    protected void createNewPlayer() {
+    protected void createNewPlayer() throws SQLException {
         String[] newPlayerData = menu.createNewPlayerMenu();
         if (newPlayerData[1].equalsIgnoreCase("guerrier")) {
             player = new Guerrier(newPlayerData[0]);
-            System.out.println("Personnage créé");
+            menu.printMessage("Personnage créé");
         } else {
             player = new Magicien(newPlayerData[0]);
-            System.out.println("Personnage créé");
+            menu.printMessage("Personnage créé");
         }
-//        myDB.createHero(player);
+        myDB.saveHeroInDB(player);
     }
 
     protected void updatePlayer() throws SQLException {
@@ -78,6 +87,7 @@ public class Controller {
         } else {
             player = new Magicien(updatePlayerData[0]);
         }
+        menu.printMessage("Personnage modifié");
         myDB.saveHeroInDB(player);
     }
 
@@ -109,16 +119,73 @@ public class Controller {
                     }
                 }
             }
+            menu.printMessage("Personnage chargé");
         } catch (SQLException e) {
-            System.out.println("Le truc a pas chargé");
+            menu.printMessage("Le truc a pas chargé");
         }
+
+    }
+
+    protected void quitStartMenu() {
+        exitStartMenu = true;
+    }
+
+    protected void quitSousMenu() {
+        exitSousMenu = true;
+    }
+
+    protected void quitGame() {
+        exitSousMenu = true;
     }
 
     // ----------------- GAME ---------------------------------------------------------------
-    public void startGame(){
+    public void startGame() throws PersonnageHorsPlateauException {
         newGame = new Game(player);
+        playGame(player);
     }
 
+    /**
+     * Permet de jouer au jeu. Le joueur se déplace puis il y a une vérification de case tant que la partie n'est pas gagnée et tant que le joueur a encore des points de vie.
+     */
+    public void playGame(Personnage pPlayer) throws PersonnageHorsPlateauException {
+//         test de la méthode et renvoie d'erreur si besoin
+        while (!newGame.isWinGame() && pPlayer.getLife() > 0) {
+            try {
+                newGame.movePlayer(pPlayer);
+                if (player.getPosition() == 63) {
+                    menu.winMenu();
+                    newGame.setWinGame(true);
+                }
+            } catch (PersonnageHorsPlateauException e) {
+                pPlayer.moveBack();
+            }
+            newGame.checkCase(player);
+            menu.endTurnMenu(player);
+        }
+    }
 
+    public void endGame() throws SQLException, PersonnageHorsPlateauException {
+        switch (menu.endGameMenu()) {
+            case 1 -> {
+                player.setLife(player.getStartLife());
+                player.setOffensive(player.getType().equalsIgnoreCase("guerrier") ? new Arme() : new Sort());
+                zob();
+            }
+            case 2 -> {
+                chooseExistantPlayer();
+                zob();
+            }
+            case 3 -> {
+                createNewPlayer();
+                zob();
+            }
+            case 4 -> quitGame();
+        }
+    }
 
+    private void zob() throws PersonnageHorsPlateauException, SQLException {
+        newGame = new Game(player);
+        playGame(player);
+        endGame();
+    }
 }

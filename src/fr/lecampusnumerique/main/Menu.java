@@ -1,29 +1,16 @@
 package fr.lecampusnumerique.main;
 
-import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
-import fr.lecampusnumerique.game.Game;
-import fr.lecampusnumerique.equipements.offense.guerrier.Arme;
-import fr.lecampusnumerique.equipements.offense.guerrier.Epee;
-import fr.lecampusnumerique.equipements.offense.guerrier.Massue;
-import fr.lecampusnumerique.equipements.offense.magicien.BouleDeFeu;
-import fr.lecampusnumerique.equipements.offense.magicien.Eclair;
-import fr.lecampusnumerique.equipements.offense.magicien.Sort;
-import fr.lecampusnumerique.personnages.Guerrier;
-import fr.lecampusnumerique.personnages.Magicien;
 import fr.lecampusnumerique.personnages.Personnage;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Menu {
-    boolean exitStartMenu = false;
-    boolean exitSousMenu = false;
+public class Menu  {
     Scanner eventUser = new Scanner(System.in);
-    ConnexionBDD myDB;
+    protected ConnexionBDD myDB = new ConnexionBDD();
 
     public Menu() {
-
+        myDB.Connect();
     }
 
 //    public void start() throws SQLException, PersonnageHorsPlateauException {
@@ -73,11 +60,11 @@ public class Menu {
     /**
      * Cette méthode va créer et ECRASER le player déjà créé.
      */
-    public String[] updatePlayerMenu () {
+    public String[] updatePlayerMenu() {
         System.out.println("Modifier nom : ");
-        String newName = eventUser.nextLine();
+        String newName = eventUser.next();
         System.out.println("Modifier type : ");
-        String newType = eventUser.nextLine();
+        String newType = eventUser.next();
         String[] arr = {newName, newType};
         return arr;
     }
@@ -85,9 +72,9 @@ public class Menu {
 
     public String[] createNewPlayerMenu() {
         System.out.println("Entrez le nom du personnage : ");
-        String pName = eventUser.nextLine();
+        String pName = eventUser.next();
         System.out.println("Entrez la classe : ");
-        String pType = eventUser.nextLine();
+        String pType = eventUser.next();
         String[] arr = {pName, pType};
         return arr;
     }
@@ -101,9 +88,15 @@ public class Menu {
                 chosenPlayerState = true;
             } catch (SQLException e) {
                 System.out.println("Ce héros n'existe pas !");
+            } catch (NullPointerException e) {
+                e.getMessage();
             }
         }
         return eventUser.nextInt();
+    }
+
+    public void printMessage(String pMessage) {
+        System.out.println(pMessage);
     }
 
 //    public void editPlayer() throws SQLException {
@@ -144,43 +137,42 @@ public class Menu {
 
     public int startMenu() {
         System.out.println("----------------------------------------------------------------------------");
-        System.out.println("Que voulez-vous faire ?\n1 - Créer un nouveau joueur\n2 - Afficher les joueurs\n3 - Modifier un joueur\n4 - Choisir un joueur existant\n5 - Quitter");
+        System.out.println("Que voulez-vous faire ?\n1 - Créer un nouveau joueur\n2 - Afficher les joueurs\n3 - Modifier un joueur\n4 - Choisir un joueur existant\n5 - Quitter le jeu");
         System.out.println("----------------------------------------------------------------------------");
         return eventUser.nextInt();
     }
 
     public int sousMenu() {
-        System.out.println("Que voulez-vous faire ?\n1 - Afficher les infos du joueur\n2 - Modifier les infos du joueur\n3 - Commencer la partie\n4 - Retour au menu principal");
+        System.out.println("Que voulez-vous faire ?\n1 - Afficher les infos du joueur\n2 - Modifier les infos du joueur\n3 - Commencer la partie\n4 - Retour au menu principal\n5 - Quitter");
+        return eventUser.nextInt();
+    }
+    /**
+     * Permet de gérer le menu de fin de tour.
+     *
+     * @param pPlayer joueur en action.
+     */
+    public void endTurnMenu(Personnage pPlayer) {
+        boolean endTurnExit = false;
+        while (!endTurnExit) {
+            System.out.println("[entrée] pour passer au tour suivant, INFO pour voir tes stats");
+            String temp = eventUser.nextLine();
+            if (temp.equalsIgnoreCase("info")) {
+                System.out.println(pPlayer);
+            } else {
+                endTurnExit = true;
+            }
+        }
+    }
+
+    public int endGameMenu(){
+        System.out.println("Que voulez-vous faire ?\n1 - Recommencer une partie avec le même héros\n2 - Recommencer une partie en choisissant un nouvel héros\n3 - Recommencer une partie en créant un nouvel héros\n4 - Quitter le jeu");
         return eventUser.nextInt();
     }
 
 
-    // -------------------------------------- AUTRE --------------------------------------
 
-    /**
-     * Méthode utilisée pour quitter la boucle dans le menu principal
-     */
-    public void quit() {
-        exitStartMenu = true;
+    public void winMenu(){
+        System.out.println("OMG t'as fini !");
     }
 
-//    public void endGame() throws SQLException, PersonnageHorsPlateauException {
-//        System.out.println("Que voulez-vous faire ?\n1 - Recommencer une partie\n2 - Quitter");
-//        int choice = getUserChoice();
-//        if (choice == 1) {
-//            int newChoice = getUserChoice();
-//            System.out.println("Que voulez-vous faire ?\n1 - Garder le même personnage\n2 - Créer un nouveau personnage");
-//            if (newChoice == 1) {
-//                player.setLife(player.getStartLife());
-//                player.setOffensive(player.getType().equalsIgnoreCase("guerrier") ? new Arme() : new Sort());
-//            } else {
-//                myDB.createHero(player);
-//            }
-//            newGame = new Game(player);
-//            newGame.playGame(player);
-//            endGame();
-//        } else if (choice == 2) {
-//            quit();
-//        }
-//    }
 }

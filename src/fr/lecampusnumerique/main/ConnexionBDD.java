@@ -4,19 +4,20 @@ import fr.lecampusnumerique.personnages.Personnage;
 
 import java.sql.*;  // pour les programmes standards de JDBC
 import java.util.InputMismatchException;
-import java.util.Scanner;
-
 
 public class ConnexionBDD {
-    Connection conMyDB;
-    Scanner eventUser = new Scanner(System.in);
+    private Connection conMyDB;
 
     public boolean Connect() {
         try {
-            conMyDB = DriverManager.getConnection("jdbc:mysql://localhost:3306/donjons_dragons", "root", "root");
+            // AU CAMPUS C'EST CA ------>
+            //conMyDB = DriverManager.getConnection("jdbc:mysql://localhost:3306/donjons_dragons", "root", "root");
+            // A LA MAISON C'EST CA ------>
+            conMyDB = DriverManager.getConnection("jdbc:mysql://localhost:8889/donjons_dragons", "root", "root");
+            System.out.println("BDD CONNECTEE");
             return true;
         } catch (SQLException e) {
-            System.out.println("Erreur : problème de driver !");
+            // System.out.println("Erreur : problème de driver !");
             return false;
         }
     }
@@ -63,8 +64,6 @@ public class ConnexionBDD {
         return rs;
     }
 
-
-
     public void createHero(Personnage pPlayer) throws SQLException {
         try {
             String sql = "INSERT INTO hero(type, name, life, strength, offensive, defensive) VALUES (?, ?, ?, ?, ?, ?)";
@@ -107,6 +106,7 @@ public class ConnexionBDD {
         }
         System.out.println("-------------------\nPersonnage modifié\n-------------------");
     }
+
     public void saveHeroInDB(Personnage pPlayer) throws SQLException {
         try {
             PreparedStatement stmt = conMyDB.prepareStatement("UPDATE hero SET name = ?, life = ?, type = ?, strength = ?, offensive = ?, defensive = ? WHERE id = ?");
@@ -121,7 +121,7 @@ public class ConnexionBDD {
         } catch (SQLException e) {
             System.out.println("Problème dans la save du héros : " + e.getMessage());
         }
-        System.out.println("-------------------\nPersonnage sauvegardé\n-------------------");
+        System.out.println("-------------------\nPersonnage sauvegardé dans la BDD\n-------------------");
     }
 
     public void changeLifePoints(Personnage pPlayer) {

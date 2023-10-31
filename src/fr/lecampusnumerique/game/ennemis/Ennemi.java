@@ -68,8 +68,8 @@ public abstract class Ennemi implements iCell {
                 System.out.println("Il vous reste " + pPlayer.getLife() + " HP, l'ennemi en a " + life + ". Que voulez-vous faire ?\n1 - Attaquer\n2 - Fuir");
                 if (userChoice.nextInt() == 2) {
                     int result = 1 + (int) (Math.random() * ((6 - 1) + 1));
-                    pPlayer.setPosPlayer(pPlayer.getPosPlayer() - result);
-                    System.out.println("OK tu fuis, pas de bashing. Mais tu recules quand même de " + result + " cases. T'es maintenant sur la case " + pPlayer.getPosPlayer());
+                    pPlayer.setPosition(pPlayer.getPosition() - result);
+                    System.out.println("OK tu fuis, pas de bashing. Mais tu recules quand même de " + result + " cases. T'es maintenant sur la case " + pPlayer.getPosition());
                     pPlayer.setExitFight(true);
                 }
             } else {
