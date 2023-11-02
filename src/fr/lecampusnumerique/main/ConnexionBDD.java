@@ -28,9 +28,10 @@ public class ConnexionBDD {
         Statement stmt = conMyDB.createStatement(); // objet Statement permettant d'initialiser un statement pour la future requête SQL.
         ResultSet rs = stmt.executeQuery("SELECT * FROM Hero"); // objet ResultSet tableau dont les colonnes sont celles qui ont été extraites par notre requête SQL, et dont les lignes sont les résultats de cette requête.
         while (rs.next()) { // .next() pour les ResultSet permet de passer à la ligne suivante et donc d'itérer la table récupérée.
+            System.out.println("-------------------------------------------------------------");
             System.out.println("id : " + rs.getInt("id")); //.getInt() permet de récupérer un int en lui donnant le label de la colonne.
-            System.out.println("Type : " + rs.getString("type"));//.getString() permet de récupérer un String en lui donnant le label de la colonne.
             System.out.println("Name : " + rs.getString("name"));
+            System.out.println("Type : " + rs.getString("type"));//.getString() permet de récupérer un String en lui donnant le label de la colonne.
             System.out.println("Life : " + rs.getInt("life"));
             System.out.println("Strength : " + rs.getInt("strength"));
             System.out.println("Offensive : " + rs.getString("offensive"));

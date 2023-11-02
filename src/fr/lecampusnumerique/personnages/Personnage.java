@@ -43,7 +43,7 @@ public abstract class Personnage {
 
     public void moveBack(){
         position = 126 - position;
-        System.out.println("STOOOOOOOOOOOOOOOOOP ! Tu vas trop loin !!!!! Tu recules à la case" + position);
+        System.out.println("STOOOOOOOOOOOOOOOOOP ! Tu vas trop loin !!!!! Tu recules à la case " + position);
     }
 
     public void displayStats() {

@@ -62,9 +62,9 @@ public class Menu {
     }
 
     public int displayStartMenu() {
-        System.out.println("----------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------");
         System.out.println("Que voulez-vous faire ?\n1 - Créer un nouveau joueur\n2 - Afficher les joueurs\n3 - Modifier un joueur\n4 - Choisir un joueur existant\n5 - Quitter le jeu");
-        System.out.println("----------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------");
         return eventUser.nextInt();
     }
 
