@@ -188,4 +188,8 @@ public class Game {
     public void setWinGame(boolean winGame) {
         this.winGame = winGame;
     }
+
+    public ArrayList<iCell> getPlateau() {
+        return plateau;
+    }
 }

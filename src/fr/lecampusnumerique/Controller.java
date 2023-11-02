@@ -10,6 +10,7 @@ import fr.lecampusnumerique.exceptions.MauvaisChoixUtilisateur;
 import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
 import fr.lecampusnumerique.exceptions.ProblemeConnexion;
 import fr.lecampusnumerique.game.Game;
+import fr.lecampusnumerique.game.iCell;
 import fr.lecampusnumerique.main.ConnexionBDD;
 import fr.lecampusnumerique.personnages.Guerrier;
 import fr.lecampusnumerique.personnages.Magicien;
@@ -87,7 +88,7 @@ public class Controller {
             myDB.savePlayerInBDD(player);
             menu.displaySavePlayerinBDDMessage();
         } catch (SQLException e) {
-            menu.displayErrorMessage("Pas de save dans la BDD mais pas de souci tu peux game");
+            menu.displayErrorMessage("Pas de save dans la BDD mais pas de souci tu peux game quand même");
         }
     }
 
@@ -98,8 +99,8 @@ public class Controller {
         } else {
             player = new Magicien(updatePlayerData[0]);
         }
-        menu.displayUpdatedPlayerMessage();
         myDB.savePlayerInBDD(player);
+        menu.displayUpdatedPlayerMessage();
     }
 
     private void displayAllPlayers() throws NullPointerException {

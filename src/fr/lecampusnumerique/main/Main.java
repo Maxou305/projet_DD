@@ -4,7 +4,6 @@ import fr.lecampusnumerique.Controller;
 import fr.lecampusnumerique.exceptions.MauvaisChoixUtilisateur;
 import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
 import fr.lecampusnumerique.exceptions.ProblemeConnexion;
-import fr.lecampusnumerique.main.Menu;
 
 import java.sql.SQLException;
 

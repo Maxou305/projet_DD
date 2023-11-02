@@ -62,14 +62,13 @@ public class ConnexionBDD {
     }
 
     public void savePlayerInBDD(Personnage pPlayer) throws SQLException {
-        PreparedStatement stmt = conMyDB.prepareStatement("UPDATE hero SET name = ?, life = ?, type = ?, strength = ?, offensive = ?, defensive = ? WHERE id = ?");
-        stmt.setString(1, pPlayer.getName());
-        stmt.setInt(2, pPlayer.getLife());
-        stmt.setString(3, pPlayer.getType());
+        PreparedStatement stmt = conMyDB.prepareStatement("INSERT INTO `hero` (`type`, `name`, `life`, `strength`, `offensive`, `defensive`) VALUES (?, ?, ?, ?, ?, ?)");
+        stmt.setString(1, pPlayer.getType());
+        stmt.setString(2, pPlayer.getName());
+        stmt.setInt(3, pPlayer.getLife());
         stmt.setInt(4, pPlayer.getStrength());
         stmt.setString(5, pPlayer.getOffensive().getName());
         stmt.setString(6, pPlayer.getDefensive().getName());
-        stmt.setInt(7, pPlayer.getId());
         stmt.executeUpdate();
     }
 
@@ -80,7 +79,17 @@ public class ConnexionBDD {
             stmt.setInt(2, pPlayer.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Problème dans l'update de la vie : " + e.getMessage());
+            e.getMessage();
         }
+    }
+
+    public void saveGameInBDD() throws SQLException {
+        String sql ="INSERT INTO plateau";
+        PreparedStatement stmt = conMyDB.prepareStatement(sql);
+
+
+
+
+
     }
 }
