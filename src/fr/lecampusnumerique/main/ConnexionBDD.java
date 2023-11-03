@@ -1,8 +1,12 @@
 package fr.lecampusnumerique.main;
 
+import fr.lecampusnumerique.personnages.DataHero;
 import fr.lecampusnumerique.personnages.Personnage;
 
+import javax.xml.crypto.Data;
 import java.sql.*;  // pour les programmes standards de JDBC
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ConnexionBDD {
     private Connection conMyDB;
@@ -24,19 +28,21 @@ public class ConnexionBDD {
      *
      * @throws SQLException renvoie une erreur si la requête SQL n'est pas passée.
      */
-    public void displayHeroes() throws SQLException {
+    public ArrayList<DataHero> getHeroesFromBDD() throws SQLException {
         Statement stmt = conMyDB.createStatement(); // objet Statement permettant d'initialiser un statement pour la future requête SQL.
         ResultSet rs = stmt.executeQuery("SELECT * FROM Hero"); // objet ResultSet tableau dont les colonnes sont celles qui ont été extraites par notre requête SQL, et dont les lignes sont les résultats de cette requête.
+        ArrayList<DataHero> zob = new ArrayList<>();
         while (rs.next()) { // .next() pour les ResultSet permet de passer à la ligne suivante et donc d'itérer la table récupérée.
-            System.out.println("-------------------------------------------------------------");
-            System.out.println("id : " + rs.getInt("id")); //.getInt() permet de récupérer un int en lui donnant le label de la colonne.
-            System.out.println("Name : " + rs.getString("name"));
-            System.out.println("Type : " + rs.getString("type"));//.getString() permet de récupérer un String en lui donnant le label de la colonne.
-            System.out.println("Life : " + rs.getInt("life"));
-            System.out.println("Strength : " + rs.getInt("strength"));
-            System.out.println("Offensive : " + rs.getString("offensive"));
-            System.out.println("Defensive : " + rs.getString("defensive"));
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            String type = rs.getString("type");//.getString() permet de récupérer un String en lui donnant le label de la colonne.
+            int life = rs.getInt("life");
+            int strength = rs.getInt("strength");
+            String offensive = rs.getString("offensive");
+            String defensive = rs.getString("defensive");
+            zob.add(new DataHero(id, name, type, life, strength, offensive, defensive));
         }
+        return zob;
     }
 
     public void displayHeroesID() throws SQLException {
@@ -84,11 +90,8 @@ public class ConnexionBDD {
     }
 
     public void saveGameInBDD() throws SQLException {
-        String sql ="INSERT INTO plateau";
+        String sql = "INSERT INTO plateau";
         PreparedStatement stmt = conMyDB.prepareStatement(sql);
-
-
-
 
 
     }

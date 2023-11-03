@@ -77,7 +77,6 @@ public abstract class Ennemi implements iCell {
                 pPlayer.setWinFight(true);
             }
         }
-
     }
 
     @Override

@@ -37,7 +37,6 @@ public class Controller {
             menu.displayConnectedBDDMessage();
         } else {
             menu.displayNotConnectedBDDMessage();
-            throw new ProblemeConnexion();
         }
         menu.displayBanner();
         while (!exitStartMenu) {
@@ -105,7 +104,7 @@ public class Controller {
 
     private void displayAllPlayers() throws NullPointerException {
         try {
-            myDB.displayHeroes();
+            menu.displayHeroes(myDB.getHeroesFromBDD());
         } catch (NullPointerException e) {
             System.out.println("CA MARCHE PAS MDR");
         } catch (SQLException e) {

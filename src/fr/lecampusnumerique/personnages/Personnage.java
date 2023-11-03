@@ -12,8 +12,8 @@ public abstract class Personnage {
     private int hpMax;
     private int strength;
     private int position;
-    boolean exitFight = false;
-    boolean winFight = false;
+    private boolean exitFight = false;
+    private boolean winFight = false;
     private EquipementOffensif offensive;
     private EquipementDefensif defensive;
 
@@ -41,7 +41,7 @@ public abstract class Personnage {
         exitFight = true;
     }
 
-    public void moveBack(){
+    public void moveBack() {
         position = 126 - position;
         System.out.println("STOOOOOOOOOOOOOOOOOP ! Tu vas trop loin !!!!! Tu recules à la case " + position);
     }
@@ -70,10 +70,6 @@ public abstract class Personnage {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public abstract String getType();

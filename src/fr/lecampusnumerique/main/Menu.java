@@ -2,7 +2,9 @@ package fr.lecampusnumerique.main;
 
 import fr.lecampusnumerique.personnages.Personnage;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -130,7 +132,7 @@ public class Menu {
         System.out.println("Personnage créé");
     }
 
-    public void displaySavePlayerinBDDMessage(){
+    public void displaySavePlayerinBDDMessage() {
         System.out.println("Personnage sauvegardé dans la BDD");
     }
 
@@ -138,14 +140,22 @@ public class Menu {
         System.out.println("Au revoir, " + pPlayer.getName());
     }
 
-    public void displayConnectedBDDMessage(){
+    public void displayConnectedBDDMessage() {
         System.out.println("BDD CONNECTEE");
     }
-    public void displayNotConnectedBDDMessage(){
+
+    public void displayNotConnectedBDDMessage() {
         System.out.println("BDD NON CONNECTEE");
     }
-    public void displayErrorMessage(String pMessage){
+
+    public void displayErrorMessage(String pMessage) {
         System.out.println(pMessage);
+    }
+
+    // ----------------- DISPLAY HEROES ---------------------------------------------------------------
+
+    public void displayHeroes(ArrayList pList) {
+        System.out.println(pList);
     }
 }
 
