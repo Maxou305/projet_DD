@@ -2,9 +2,7 @@ package fr.lecampusnumerique.game.ennemis;
 
 public class Sorcier extends Ennemi {
     public Sorcier() {
-        super("Karaba");
-        setAttack(2);
-        setLife(9);
+        super("Karaba", 2, 9);
     }
 
     /**

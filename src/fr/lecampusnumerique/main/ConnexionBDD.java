@@ -45,14 +45,6 @@ public class ConnexionBDD {
         return zob;
     }
 
-    public void displayHeroesID() throws SQLException {
-        Statement stmt = conMyDB.createStatement(); // objet Statement permettant d'initialiser un statement pour la future requête SQL.
-        ResultSet rs = stmt.executeQuery("SELECT * FROM Hero");
-        while (rs.next()) {
-            System.out.println(rs.getInt("id") + " - " + rs.getString("name"));
-        }
-    }
-
     public ResultSet getHeroByID(int pUserChoice) throws SQLException {
         int userChoice = pUserChoice;
         String sql = "SELECT * FROM hero WHERE id = ?";
@@ -87,12 +79,5 @@ public class ConnexionBDD {
         } catch (SQLException e) {
             e.getMessage();
         }
-    }
-
-    public void saveGameInBDD() throws SQLException {
-        String sql = "INSERT INTO plateau";
-        PreparedStatement stmt = conMyDB.prepareStatement(sql);
-
-
     }
 }

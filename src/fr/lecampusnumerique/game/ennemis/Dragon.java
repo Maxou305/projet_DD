@@ -2,9 +2,7 @@ package fr.lecampusnumerique.game.ennemis;
 
 public class Dragon extends Ennemi {
     public Dragon(){
-        super("Smaug");
-        setAttack(4);
-        setLife(15);
+        super("Smaug", 4, 15);
     }
 
     @Override

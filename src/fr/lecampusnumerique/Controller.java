@@ -10,7 +10,6 @@ import fr.lecampusnumerique.exceptions.MauvaisChoixUtilisateur;
 import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
 import fr.lecampusnumerique.exceptions.ProblemeConnexion;
 import fr.lecampusnumerique.game.Game;
-import fr.lecampusnumerique.game.iCell;
 import fr.lecampusnumerique.main.ConnexionBDD;
 import fr.lecampusnumerique.personnages.Guerrier;
 import fr.lecampusnumerique.personnages.Magicien;
@@ -104,7 +103,7 @@ public class Controller {
 
     private void displayAllPlayers() throws NullPointerException {
         try {
-            menu.displayHeroes(myDB.getHeroesFromBDD());
+            menu.displayHeroesFromBDD(myDB.getHeroesFromBDD());
         } catch (NullPointerException e) {
             System.out.println("CA MARCHE PAS MDR");
         } catch (SQLException e) {
@@ -114,11 +113,7 @@ public class Controller {
 
     private void chooseExistantPlayer() throws MauvaisChoixUtilisateur {
         ResultSet chosenPlayer;
-        try {
-            myDB.displayHeroesID();
-        } catch (SQLException e) {
-            e.getMessage();
-        }
+        displayAllPlayers();
         try {
             chosenPlayer = myDB.getHeroByID(menu.displayChooseExistantPlayerMenu());
         } catch (SQLException e) {

@@ -2,7 +2,7 @@ package fr.lecampusnumerique.main;
 
 import fr.lecampusnumerique.personnages.Personnage;
 
-import java.sql.ResultSet;
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -152,11 +152,9 @@ public class Menu {
         System.out.println(pMessage);
     }
 
-    // ----------------- DISPLAY HEROES ---------------------------------------------------------------
+    // ----------------- DISPLAY BDD ---------------------------------------------------------------
 
-    public void displayHeroes(ArrayList pList) {
+    public void displayHeroesFromBDD(ArrayList pList) {
         System.out.println(pList);
     }
 }
-
-

@@ -11,8 +11,8 @@ public abstract class Ennemi implements iCell {
     private int attack;
     private String name;
 
-    public Ennemi(String pName) {
-        name = pName;
+    public Ennemi(String pName, int pAttack, int pLife) {
+        name = pName; attack = pAttack; life = pLife;
     }
 
     // ----- GETTERS & SETTERS ------------------------------------------------------------------------------------
@@ -37,10 +37,6 @@ public abstract class Ennemi implements iCell {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        name = name;
     }
 
     @Override
