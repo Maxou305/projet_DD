@@ -8,7 +8,6 @@ import fr.lecampusnumerique.equipements.offense.magicien.Eclair;
 import fr.lecampusnumerique.equipements.offense.magicien.Sort;
 import fr.lecampusnumerique.exceptions.MauvaisChoixUtilisateur;
 import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
-import fr.lecampusnumerique.exceptions.ProblemeConnexion;
 import fr.lecampusnumerique.game.Game;
 import fr.lecampusnumerique.main.ConnexionBDD;
 import fr.lecampusnumerique.personnages.Guerrier;
@@ -31,7 +30,7 @@ public class Controller {
         menu = new Menu();
     }
 
-    public void start() throws SQLException, PersonnageHorsPlateauException, MauvaisChoixUtilisateur, ProblemeConnexion {
+    public void start() throws SQLException, PersonnageHorsPlateauException, MauvaisChoixUtilisateur {
         if (myDB.Connect()) {
             menu.displayConnectedBDDMessage();
         } else {

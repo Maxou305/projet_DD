@@ -6,14 +6,14 @@ import fr.lecampusnumerique.personnages.Personnage;
 import java.util.Scanner;
 
 public abstract class EquipementOffensif implements iCell {
-    private int value;
-    private String name;
+    private final int value;
+    private final String name;
     private String usableBy;
 
-    protected EquipementOffensif(String pName) {
+    protected EquipementOffensif(String pName, int pValue) {
         name = pName;
+        value = pValue;
     }
-
 
     // ----- GETTERS & SETTERS ------------------------------------------------------------------------------------
 
@@ -23,20 +23,8 @@ public abstract class EquipementOffensif implements iCell {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsableBy() {
-        return usableBy;
     }
 
     public void setUsableBy(String usableBy) {

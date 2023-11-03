@@ -2,14 +2,14 @@ package fr.lecampusnumerique.equipements.defense;
 
 public abstract class EquipementDefensif {
     private int value;
-    private String name;
+    private final String name;
 
-    protected EquipementDefensif(String pName) {
+    protected EquipementDefensif(String pName, int pValue) {
         name = pName;
+        value = pValue;
     }
 
     public abstract String getType();
-
 
     // ----- GETTERS & SETTERS ------------------------------------------------------------------------------------
 
@@ -17,20 +17,13 @@ public abstract class EquipementDefensif {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
     @Override
     public String toString() {
-        return  "\n----- FICHE DU SHIELD -----"+
+        return "\n----- FICHE DU SHIELD -----" +
                 "\nNom : " + name +
                 "\nType : " + getType() +
                 "\nStat : " + value +

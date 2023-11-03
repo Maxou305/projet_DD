@@ -6,7 +6,7 @@ import fr.lecampusnumerique.game.ennemis.Ennemi;
 
 public abstract class Personnage {
     private int id;
-    private String name;
+    private final String name;
     private int life;
     private int startLife;
     private int hpMax;
@@ -54,10 +54,6 @@ public abstract class Personnage {
 
     public int getStartLife() {
         return startLife;
-    }
-
-    public void setStartLife(int startLife) {
-        this.startLife = startLife;
     }
 
     public boolean isWinFight() {
@@ -132,10 +128,6 @@ public abstract class Personnage {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

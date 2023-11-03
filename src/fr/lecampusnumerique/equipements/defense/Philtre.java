@@ -1,13 +1,9 @@
 package fr.lecampusnumerique.equipements.defense;
 
 public class Philtre extends EquipementDefensif {
-    public Philtre(String pName) {
-        super(pName);
-    }
 
     public Philtre() {
-        this("Miroir miroir"); // this() permet d'appeler le constructeur de base !
-        setValue(0);
+        super("Miroir miroir", 0); // this() permet d'appeler le constructeur de base !
     }
 
     @Override
