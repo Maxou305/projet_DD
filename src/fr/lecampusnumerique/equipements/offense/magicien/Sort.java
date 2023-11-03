@@ -1,6 +1,7 @@
 package fr.lecampusnumerique.equipements.offense.magicien;
 
 import fr.lecampusnumerique.equipements.offense.EquipementOffensif;
+import fr.lecampusnumerique.personnages.Personnage;
 
 public class Sort extends EquipementOffensif {
     public Sort(String pName, int pValue) {
@@ -15,4 +16,5 @@ public class Sort extends EquipementOffensif {
     public String getType() {
         return "Sort";
     }
+
 }

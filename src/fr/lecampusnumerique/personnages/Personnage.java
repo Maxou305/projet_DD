@@ -4,7 +4,7 @@ import fr.lecampusnumerique.equipements.defense.EquipementDefensif;
 import fr.lecampusnumerique.equipements.offense.EquipementOffensif;
 import fr.lecampusnumerique.game.ennemis.Ennemi;
 
-public abstract class Personnage {
+public abstract class Personnage{
     private int id;
     private final String name;
     private int life;

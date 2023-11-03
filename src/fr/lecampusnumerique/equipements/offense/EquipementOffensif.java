@@ -2,10 +2,11 @@ package fr.lecampusnumerique.equipements.offense;
 
 import fr.lecampusnumerique.game.iCell;
 import fr.lecampusnumerique.personnages.Personnage;
+import fr.lecampusnumerique.main.iVisitorClasseEquipementOffensif;
 
 import java.util.Scanner;
 
-public abstract class EquipementOffensif implements iCell {
+public abstract class EquipementOffensif implements iCell, iVisitorClasseEquipementOffensif {
     private final int value;
     private final String name;
     private String usableBy;
