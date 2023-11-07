@@ -23,7 +23,7 @@ public class Game {
     private boolean winGame = false;
 
     /**
- * Constructeur de la classe Game. Va créer un plateau de jeu format ArrayList et mettre le joueur sur la case 0.
+     * Constructeur de la classe Game. Va créer un plateau de jeu format ArrayList et mettre le joueur sur la case 0.
      */
     public Game(Personnage pPlayer) {
         plateau = new ArrayList<>();
@@ -67,6 +67,8 @@ public class Game {
         int nbrDragons = 4;
         int nbrSorciers = 10;
         int nbrGobelins = 10;
+        int nbrOrcs;
+        int nbrSpirits;
         int nbrMassues = 5;
         int nbrEpees = 4;
         int nbrEclairs = 5;
