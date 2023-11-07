@@ -3,14 +3,16 @@ package fr.lecampusnumerique.main;
 import fr.lecampusnumerique.personnages.DataHero;
 import fr.lecampusnumerique.personnages.Personnage;
 
-import javax.xml.crypto.Data;
 import java.sql.*;  // pour les programmes standards de JDBC
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ConnexionBDD {
     private Connection conMyDB;
 
+    /**
+     * Méthode permettant la connexion à la BDD.
+     * @return true ou false selon si la BDD est connectée ou non
+     */
     public boolean Connect() {
         try {
             // AU CAMPUS C'EST CA ------>
@@ -24,7 +26,7 @@ public class ConnexionBDD {
     }
 
     /**
-     * Permet de récupérer tous les héros de la BDD.
+     * Permet de récupérer tous les héros de la BDD sous forme d'ArrayList.
      *
      * @throws SQLException renvoie une erreur si la requête SQL n'est pas passée.
      */
@@ -45,13 +47,18 @@ public class ConnexionBDD {
         return zob;
     }
 
+    /**
+     * Permet de renvoyer un héros en fonction d'un ID choisi par l'utilisateur.
+     * @param pUserChoice choix du héros sous forme d'int
+     * @return ResultSet correspondant à un héros
+     * @throws SQLException erreur renvoyée s'il y a eu un problème dans la requête SQL
+     */
     public ResultSet getHeroByID(int pUserChoice) throws SQLException {
-        int userChoice = pUserChoice;
         String sql = "SELECT * FROM hero WHERE id = ?";
         ResultSet rs = null;
         try {
             PreparedStatement stmt = conMyDB.prepareStatement(sql);
-            stmt.setInt(1, userChoice);
+            stmt.setInt(1, pUserChoice);
             rs = stmt.executeQuery();
         } catch (SQLException e) {
             e.getMessage();
@@ -59,6 +66,11 @@ public class ConnexionBDD {
         return rs;
     }
 
+    /**
+     * Méthode permettant la sauvegarde du joueur dans la BDD
+     * @param pPlayer joueur à sauvegarder
+     * @throws SQLException erreur renvoyée si la requête SQL n'est pas passée
+     */
     public void savePlayerInBDD(Personnage pPlayer) throws SQLException {
         PreparedStatement stmt = conMyDB.prepareStatement("INSERT INTO `hero` (`type`, `name`, `life`, `strength`, `offensive`, `defensive`) VALUES (?, ?, ?, ?, ?, ?)");
         stmt.setString(1, pPlayer.getType());
@@ -70,6 +82,10 @@ public class ConnexionBDD {
         stmt.executeUpdate();
     }
 
+    /**
+     * Méthode permettant de modifier dans la BDD le niveau de vie du joueur (non-utilisée pour le moment).
+     * @param pPlayer joueur
+     */
     public void changeLifePoints(Personnage pPlayer) {
         try {
             PreparedStatement stmt = conMyDB.prepareStatement("UPDATE hero SET life = ? WHERE id = ?");

@@ -4,7 +4,10 @@ import fr.lecampusnumerique.equipements.defense.EquipementDefensif;
 import fr.lecampusnumerique.equipements.offense.EquipementOffensif;
 import fr.lecampusnumerique.game.ennemis.Ennemi;
 
-public abstract class Personnage{
+/**
+ * Classe Personnage en mode abstrait, ne sera pas instancié mais sera la Classe mère de Guerrier et Magicien. Contient toutes les informations liées au personnage.
+ */
+public abstract class Personnage {
     private int id;
     private final String name;
     private int life;
@@ -17,35 +20,83 @@ public abstract class Personnage{
     private EquipementOffensif offensive;
     private EquipementDefensif defensive;
 
+    /**
+     * Constructeur de Personnage prenant un seul paramètre
+     *
+     * @param pName nom que l'utilisateur donne à son joueur
+     */
     protected Personnage(String pName) {
         name = pName;
     }
 
+    /**
+     * Constructeur de Personnage prenant 6 paramètres.
+     * @param pName name
+     * @param pLife life
+     * @param pStrength strength
+     * @param pHpMax hpMax
+     * @param pOffensive offensive
+     * @param pDefensive defensive
+     */
+    protected Personnage(String pName, int pLife, int pStrength, int pHpMax, EquipementOffensif pOffensive, EquipementDefensif pDefensive) {
+        name = pName;
+        life = pLife;
+        strength = pStrength;
+        hpMax = pHpMax;
+        offensive = pOffensive;
+        defensive = pDefensive;
+    }
+
     // ----- METHODES ------------------------------------------------------------------------------------
+
+    /**
+     * Méthode permettant au joueur de se soigner.
+     *
+     * @param healing valeur du heal
+     */
     public void heal(int healing) {
         life += healing;
     }
 
+    /**
+     * Méthode permettant de gérer l'attaque sur un ennemi.
+     *
+     * @param pEnnemi ennemi affronté
+     */
     public void attack(Ennemi pEnnemi) {
         pEnnemi.setLife(pEnnemi.getLife() - (strength + offensive.getValue()));
     }
 
-    public void damaged(Ennemi ennemi) {
-        int damages = ennemi.getAttack() - defensive.getValue();
+    /**
+     * Méthode permettant de gérer les dommages subis par un ennemi.
+     *
+     * @param pEnnemi ennemi affronté
+     */
+    public void damaged(Ennemi pEnnemi) {
+        int damages = pEnnemi.getAttack() - defensive.getValue();
         life -= damages;
     }
 
+    /**
+     * Méthode permettant de gérer la fuite lors d'un combat (Le joueur recule).
+     */
     public void escape() {
         position -= 2;
         System.out.println("OK tu fuis, pas de bashing. Mais tu recules quand même de 2 cases. T'es maintenant sur la case " + position);
         exitFight = true;
     }
 
+    /**
+     * Méthode permettant de gérer le moment où le joueur dépasse le plateau (sa position devient supérieure à 63).
+     */
     public void moveBack() {
         position = 126 - position;
         System.out.println("STOOOOOOOOOOOOOOOOOP ! Tu vas trop loin !!!!! Tu recules à la case " + position);
     }
 
+    /**
+     * Méthode permettant d'afficher les stats du joueur
+     */
     public void displayStats() {
         System.out.println(this);
     }

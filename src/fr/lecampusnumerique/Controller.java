@@ -18,6 +18,9 @@ import fr.lecampusnumerique.main.Menu;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe Controller gérant la logique du programme (le code est pensé pour être au maximum sous format MVC).
+ */
 public class Controller {
     private Menu menu;
     boolean exitStartMenu = false;
@@ -26,10 +29,19 @@ public class Controller {
     private Personnage player;
     private ConnexionBDD myDB = new ConnexionBDD();
 
+    /**
+     * Constructeur de Controller
+     */
     public Controller() {
         menu = new Menu();
     }
 
+    /**
+     * Méthode initialisant le début du programme. Va permettre d'afficher les menus, créer les joueurs, les parties, jouer et recommencer.
+     * @throws SQLException
+     * @throws PersonnageHorsPlateauException
+     * @throws MauvaisChoixUtilisateur
+     */
     public void start() throws SQLException, PersonnageHorsPlateauException, MauvaisChoixUtilisateur {
         if (myDB.Connect()) {
             menu.displayConnectedBDDMessage();
@@ -72,7 +84,10 @@ public class Controller {
 
     // ----------------- PLAYER ---------------------------------------------------------------
 
-    private void createNewPlayer() throws SQLException {
+    /**
+     * Permet de créer un nouveau joueur et de le sauvegarder dans la BDD.
+     */
+    private void createNewPlayer() {
         String[] newPlayerData = menu.displayCreateNewPlayerMenu();
         if (newPlayerData[1].equalsIgnoreCase("guerrier")) {
             player = new Guerrier(newPlayerData[0]);
@@ -89,6 +104,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Permet de mettre à jour les infos d'un joueur. Le lien avec la BDD est aussi effectué.
+     * @throws SQLException
+     */
     private void updatePlayer() throws SQLException {
         String[] updatePlayerData = menu.displayUpdatePlayerMenu();
         if (updatePlayerData[1].equalsIgnoreCase("guerrier")) {
@@ -100,6 +119,10 @@ public class Controller {
         menu.displayUpdatedPlayerMessage();
     }
 
+    /**
+     * Permet d'afficher tous les joueurs depuis la BDD.
+     * @throws NullPointerException
+     */
     private void displayAllPlayers() throws NullPointerException {
         try {
             menu.displayHeroesFromBDD(myDB.getHeroesFromBDD());
@@ -110,6 +133,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Permet de choisir un joueur existant et de joueur une partie avec lui. Lien avec la BDD.
+     * @throws MauvaisChoixUtilisateur
+     */
     private void chooseExistantPlayer() throws MauvaisChoixUtilisateur {
         ResultSet chosenPlayer;
         displayAllPlayers();
@@ -146,14 +173,23 @@ public class Controller {
         menu.displayChargedPlayerMessage(player);
     }
 
+    /**
+     * Permet de quitter le menu de départ.
+     */
     private void quitStartMenu() {
         exitStartMenu = true;
     }
 
+    /**
+     * Permet de quitter le sous-menu.
+     */
     private void quitSousMenu() {
         exitSousMenu = true;
     }
 
+    /**
+     * Permet de quitter le jeu.
+     */
     private void quitGame() {
         exitStartMenu = true;
         exitSousMenu = true;
@@ -161,15 +197,20 @@ public class Controller {
     }
 
     // ----------------- GAME ---------------------------------------------------------------
-    public void startGame() throws PersonnageHorsPlateauException {
+
+    /**
+     * Permet de créer une partie.
+     */
+    public void startGame() {
         newGame = new Game(player);
         playGame(player);
     }
 
     /**
      * Permet de jouer au jeu. Le joueur se déplace puis il y a une vérification de case tant que la partie n'est pas gagnée et tant que le joueur a encore des points de vie.
+     * @param pPlayer joueur
      */
-    private void playGame(Personnage pPlayer) throws PersonnageHorsPlateauException {
+    private void playGame(Personnage pPlayer) {
 //         test de la méthode et renvoie d'erreur si besoin
         while (!newGame.isWinGame() && pPlayer.getLife() > 0) {
             try {
@@ -186,6 +227,12 @@ public class Controller {
         }
     }
 
+    /**
+     * Permet de gérer la fin de partie. Méthode appelée une fois que le joueur est sur la case 63 et permet de recommencer une partie ou de quitter le jeu.
+     * @throws SQLException
+     * @throws PersonnageHorsPlateauException
+     * @throws MauvaisChoixUtilisateur
+     */
     private void endGame() throws SQLException, PersonnageHorsPlateauException, MauvaisChoixUtilisateur {
         switch (menu.displayEndGameMenu()) {
             case 1 -> {
@@ -205,6 +252,12 @@ public class Controller {
         }
     }
 
+    /**
+     * Permet de recommencer une partie.
+     * @throws PersonnageHorsPlateauException
+     * @throws SQLException
+     * @throws MauvaisChoixUtilisateur
+     */
     private void restartGame() throws PersonnageHorsPlateauException, SQLException, MauvaisChoixUtilisateur {
         newGame = new Game(player);
         playGame(player);

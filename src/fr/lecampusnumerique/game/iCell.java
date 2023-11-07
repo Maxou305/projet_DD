@@ -2,6 +2,9 @@ package fr.lecampusnumerique.game;
 
 import fr.lecampusnumerique.personnages.Personnage;
 
+/**
+ * Interface permettant la gestion des interactions entre le joueur et les cases sur lequel il tombe
+ */
 public interface iCell {
-    public void interaction(Personnage player);
+    void interaction(Personnage player);
 }

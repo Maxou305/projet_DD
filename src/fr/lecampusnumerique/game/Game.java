@@ -14,13 +14,16 @@ import fr.lecampusnumerique.personnages.Personnage;
 
 import java.util.ArrayList;
 
+/**
+ * Classe Game incluant toutes les règles du jeu.
+ */
 public class Game {
     private final ArrayList<iCell> plateau;
 
     private boolean winGame = false;
 
     /**
-     * Constructeur de la classe Game.
+ * Constructeur de la classe Game. Va créer un plateau de jeu format ArrayList et mettre le joueur sur la case 0.
      */
     public Game(Personnage pPlayer) {
         plateau = new ArrayList<>();
@@ -33,7 +36,6 @@ public class Game {
      * Méthode permettant de gérer le lancer de dé. Construit grâce à un random compris en tre 1 et 6.
      *
      * @return valeur du jet de dés.
-     * @see <a href="www.google.com">Java Dcoumentation</a>
      */
     public int jetDado() {
         return 1 + (int) (Math.random() * ((6 - 1) + 1));
@@ -167,7 +169,7 @@ public class Game {
      * S'il a gagné : remplace la case par une case CellCadavre.
      * S'il a fui : interagit avec la case sur laquelle il est arrivé.
      *
-     * @param pPlayer joueur en action.
+     * @param pPlayer joueur
      */
     public void checkFightResult(Personnage pPlayer) {
         if (pPlayer.isExitFight()) {
@@ -187,9 +189,5 @@ public class Game {
 
     public void setWinGame(boolean winGame) {
         this.winGame = winGame;
-    }
-
-    public ArrayList<iCell> getPlateau() {
-        return plateau;
     }
 }

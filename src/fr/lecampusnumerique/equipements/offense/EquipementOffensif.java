@@ -2,15 +2,23 @@ package fr.lecampusnumerique.equipements.offense;
 
 import fr.lecampusnumerique.game.iCell;
 import fr.lecampusnumerique.personnages.Personnage;
-import fr.lecampusnumerique.main.iVisitorClasseEquipementOffensif;
 
 import java.util.Scanner;
 
-public abstract class EquipementOffensif implements iCell, iVisitorClasseEquipementOffensif {
+/**
+ * Classe abstraite EquipementOffensif d'où les Classes Sort et Arme héritent. Contient toutes les informations (attributs et méthodes) nécessaires.
+ * Implémente l'interface iCases permettant ainsi au joueur de récupérer une arme sur une case.
+ */
+public abstract class EquipementOffensif implements iCell {
     private final int value;
     private final String name;
     private String usableBy;
 
+    /**
+     * Constructeur de base de EquipementOffensif, prenant 2 paramètres.
+     * @param pName nom de l'arme
+     * @param pValue valeur d'attaque de l'arme
+     */
     protected EquipementOffensif(String pName, int pValue) {
         name = pName;
         value = pValue;
@@ -32,6 +40,10 @@ public abstract class EquipementOffensif implements iCell, iVisitorClasseEquipem
         this.usableBy = usableBy;
     }
 
+    /**
+     * Méthode prenant un paramètre pPlayer permettant au joueur de ramasser l'arme si son type le permet.
+     * @param pPlayer joueur
+     */
     public void interaction(Personnage pPlayer) {
         Scanner eventUser = new Scanner(System.in);
         System.out.println("Vous entrez dans la pièce et vous trouvez un " + name + " !\n" + this);

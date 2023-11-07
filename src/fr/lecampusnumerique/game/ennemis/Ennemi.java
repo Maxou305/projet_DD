@@ -5,7 +5,10 @@ import fr.lecampusnumerique.personnages.Personnage;
 
 import java.util.Scanner;
 
-
+/**
+ * Classe abstraite permettant la création d'ennemis. Les Classes Dragon, Gobelin, Magicien, Orcs et MauvaisEsprits en héritent.
+ * Implémente l'interface iCell.
+ */
 public abstract class Ennemi implements iCell {
     private int life;
     private int attack;
@@ -39,6 +42,10 @@ public abstract class Ennemi implements iCell {
         return name;
     }
 
+    /**
+     * Méthode issue de l'interface iCell permettant l'interaction du joueur avec un Ennemi (fuite ou combat).
+     * @param pPlayer joueur
+     */
     @Override
     public void interaction(Personnage pPlayer) {
         Scanner userChoice = new Scanner(System.in);
@@ -51,6 +58,10 @@ public abstract class Ennemi implements iCell {
         }
     }
 
+    /**
+     * Méthode prenant un paramètre et permettant la gestion des combats (fuite ou attaque des deux protagonistes)
+     * @param pPlayer joueur
+     */
     public void fight(Personnage pPlayer) {
         Scanner userChoice = new Scanner(System.in);
         while (life > 0 && pPlayer.getLife() > 0 && !pPlayer.isWinFight() && !pPlayer.isExitFight()) {
