@@ -8,6 +8,8 @@ import fr.lecampusnumerique.game.ennemis.Dragon;
 import fr.lecampusnumerique.game.ennemis.Ennemi;
 import fr.lecampusnumerique.game.ennemis.MauvaisEsprit;
 
+import java.util.Scanner;
+
 /**
  * Classe Personnage en mode abstrait, ne sera pas instancié mais sera la Classe mère de Guerrier et Magicien. Contient toutes les informations liées au personnage.
  */
@@ -18,12 +20,14 @@ public abstract class Personnage {
     private int startLife;
     private int hpMax;
     private int strength;
+    private int attackLevel;
     private int position;
     private boolean exitFight = false;
     private boolean winFight = false;
     private boolean buff = false;
     private EquipementOffensif offensive;
     private EquipementDefensif defensive;
+    private Inventaire inventory;
 
     /**
      * Constructeur de Personnage prenant un seul paramètre
@@ -41,7 +45,6 @@ public abstract class Personnage {
      * @param pLife      life
      * @param pStrength  strength
      * @param pHpMax     hpMax
-     * @param pOffensive offensive
      * @param pDefensive defensive
      */
     protected Personnage(String pName, int pLife, int pStrength, int pHpMax, EquipementOffensif pOffensive, EquipementDefensif pDefensive) {
@@ -49,8 +52,9 @@ public abstract class Personnage {
         life = pLife;
         strength = pStrength;
         hpMax = pHpMax;
-        offensive = pOffensive;
         defensive = pDefensive;
+        offensive = pOffensive;
+        inventory = new Inventaire();
     }
 
     // ----- METHODES ------------------------------------------------------------------------------------
@@ -62,6 +66,9 @@ public abstract class Personnage {
      */
     public void heal(int healing) {
         life += healing;
+        if (life >= hpMax) {
+            life = hpMax;
+        }
     }
 
     /**
@@ -117,6 +124,27 @@ public abstract class Personnage {
         System.out.println(this);
     }
 
+    public void buff() {
+        buff = true;
+        strength *= 2;
+    }
+
+    public void switchWeapons() {
+        Scanner eventUser = new Scanner(System.in);
+        try {
+            System.out.println("Quelle arme veux-tu récupérer ?");
+            inventory.displayInventory();
+            int userChoice = eventUser.nextInt();
+            EquipementOffensif temp = offensive;
+            setOffensive(inventory.getInventory().get(userChoice));
+            inventory.getInventory().set(userChoice, temp);
+            System.out.println("Armes échangées.");
+
+        } catch (NullPointerException e) {
+            System.out.println("Ton inventaire est vide frérot");
+        }
+    }
+
     // ----- GETTERS & SETTERS ------------------------------------------------------------------------------------
 
     public int getStartLife() {
@@ -149,16 +177,8 @@ public abstract class Personnage {
         return hpMax;
     }
 
-    public void setHpMax(int hpMax) {
-        this.hpMax = hpMax;
-    }
-
     public int getStrength() {
         return strength;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
     }
 
     public EquipementOffensif getOffensive() {
@@ -171,10 +191,6 @@ public abstract class Personnage {
 
     public EquipementDefensif getDefensive() {
         return defensive;
-    }
-
-    public void setDefensive(EquipementDefensif defensive) {
-        this.defensive = defensive;
     }
 
     public int getPosition() {
@@ -197,10 +213,6 @@ public abstract class Personnage {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setStartLife(int startLife) {
         this.startLife = startLife;
     }
@@ -209,8 +221,16 @@ public abstract class Personnage {
         return buff;
     }
 
-    public void setBuff(boolean buff) {
-        this.buff = buff;
+    public Inventaire getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventaire inventory) {
+        this.inventory = inventory;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -222,6 +242,8 @@ public abstract class Personnage {
                 "\nForce : " + strength +
                 "\n" + offensive +
                 "\n" + defensive +
+                "\n ------------------------ INVENTAIRE ------------------------" +
+                "\n" + inventory +
                 "\n------------------------";
     }
 }

@@ -20,8 +20,7 @@ public class CoupDeTonnerre extends Potion {
      */
     @Override
     public void interaction(Personnage pPlayer) {
-        pPlayer.setBuff(true);
-        pPlayer.setStrength(pPlayer.getStrength()*2);
+        pPlayer.buff();
         System.out.println("Wow incroyable puissance éternelle ! Ton attaque est doublée pendant un tour.");
     }
 }

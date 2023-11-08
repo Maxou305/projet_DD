@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Menu {
+public class Menu { // TODO transformer en interface
     Scanner eventUser;
 
     public Menu() {

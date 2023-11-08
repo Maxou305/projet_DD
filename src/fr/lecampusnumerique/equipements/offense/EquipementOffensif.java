@@ -52,8 +52,16 @@ public abstract class EquipementOffensif implements iCell {
         if (pPlayer.getType().equalsIgnoreCase(usableBy)) {
             System.out.println("Voulez-vous vous en équiper ?\n1 - Oui\n2 - Non");
             if (eventUser.nextInt() == 1) {
-                pPlayer.setOffensive(this);
-                System.out.println("Ca y est, c'est équipé");
+                try {
+                    pPlayer.getInventory().addToInventory(this);
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("Ton inventaire est plein. Que veux-tu faire ?\n1 - Remplacer\n2 - Abandonner");
+                    if (eventUser.nextInt() == 1){
+                        pPlayer.getInventory().updateInventory(this);
+                    } else {
+                        System.out.println("Très bien, tu laisses l'arme dans la salle");
+                    }
+                }
             } else {
                 System.out.println("Ok ça marche.");
             }

@@ -50,11 +50,11 @@ public abstract class Ennemi implements iCell {
     public void interaction(Personnage pPlayer) {
         Scanner userChoice = new Scanner(System.in);
         System.out.println("Alerte ! Vous avez rencontré un " + name + this);
-        System.out.println("Que voulez-vous faire ?\n1 - Attaquer\n2 - Fuir");
-        if (userChoice.nextInt() == 1) {
-            fight(pPlayer);
-        } else {
-            pPlayer.escape();
+        System.out.println("Que voulez-vous faire ?\n1 - Attaquer\n2 - Changer d'arme\n3 - Fuir");
+        switch (userChoice.nextInt()){
+            case 1 -> fight(pPlayer);
+            case 2 -> pPlayer.switchWeapons();
+            case 3 -> pPlayer.escape();
         }
     }
 

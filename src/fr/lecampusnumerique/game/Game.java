@@ -1,9 +1,10 @@
 package fr.lecampusnumerique.game;
 
+import fr.lecampusnumerique.equipements.offense.guerrier.Arc;
+import fr.lecampusnumerique.equipements.offense.magicien.Invisibilite;
 import fr.lecampusnumerique.exceptions.PersonnageHorsPlateauException;
-import fr.lecampusnumerique.game.ennemis.Dragon;
-import fr.lecampusnumerique.game.ennemis.Gobelin;
-import fr.lecampusnumerique.game.ennemis.Sorcier;
+import fr.lecampusnumerique.game.ennemis.*;
+import fr.lecampusnumerique.game.potions.CoupDeTonnerre;
 import fr.lecampusnumerique.game.potions.PopoBig;
 import fr.lecampusnumerique.game.potions.PopoMini;
 import fr.lecampusnumerique.equipements.offense.guerrier.Epee;
@@ -13,6 +14,8 @@ import fr.lecampusnumerique.equipements.offense.magicien.Eclair;
 import fr.lecampusnumerique.personnages.Personnage;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Classe Game incluant toutes les règles du jeu.
@@ -29,7 +32,8 @@ public class Game {
         plateau = new ArrayList<>();
         pPlayer.setPosition(0);
 //        initCasesPlateau();
-        initRandomCasesPlateau();
+//        initRandomCasesPlateau();
+        shuffleInitCasesPlateau();
     }
 
     /**
@@ -59,6 +63,22 @@ public class Game {
             }
         }
     }
+    public void shuffleInitCasesPlateau() {
+        for (int i = 0; i < 64; i++) {
+            switch (i) {
+                case 45, 52, 56, 62 -> plateau.add(new Orc());
+                case 10, 20, 25, 32, 35, 36, 37, 40, 44, 47 -> plateau.add(new MauvaisEsprit());
+                case 3, 6, 9, 12, 15, 18, 21, 24, 27, 30 -> plateau.add(new Gobelin());
+                case 2, 11, 5, 22, 38 -> plateau.add(new Arc());
+                case 19, 26, 42, 53 -> plateau.add(new Eclair());
+                case 48, 49 -> plateau.add(new Invisibilite());
+                case 7, 13, 31, 33, 39, 43 -> plateau.add(new CoupDeTonnerre());
+                case 28, 41 -> plateau.add(new PopoBig());
+                default -> plateau.add(new CellVide());
+            }
+        }
+        Collections.shuffle(plateau);
+    }
 
     /**
      * Permet d'initialiser le plateau de jeu avec des cases placées aléatoirement.
@@ -67,8 +87,6 @@ public class Game {
         int nbrDragons = 4;
         int nbrSorciers = 10;
         int nbrGobelins = 10;
-        int nbrOrcs;
-        int nbrSpirits;
         int nbrMassues = 5;
         int nbrEpees = 4;
         int nbrEclairs = 5;

@@ -38,11 +38,12 @@ public class Controller {
 
     /**
      * Méthode initialisant le début du programme. Va permettre d'afficher les menus, créer les joueurs, les parties, jouer et recommencer.
+     *
      * @throws SQLException
      * @throws PersonnageHorsPlateauException
      * @throws MauvaisChoixUtilisateur
      */
-    public void start() throws SQLException, PersonnageHorsPlateauException, MauvaisChoixUtilisateur {
+    public void start() throws SQLException, PersonnageHorsPlateauException, MauvaisChoixUtilisateur { // TODO ajouter la classe pour gérer les scanners
         if (myDB.Connect()) {
             menu.displayConnectedBDDMessage();
         } else {
@@ -82,6 +83,8 @@ public class Controller {
         }
     }
 
+
+
     // ----------------- PLAYER ---------------------------------------------------------------
 
     /**
@@ -106,6 +109,7 @@ public class Controller {
 
     /**
      * Permet de mettre à jour les infos d'un joueur. Le lien avec la BDD est aussi effectué.
+     *
      * @throws SQLException
      */
     private void updatePlayer() throws SQLException {
@@ -121,6 +125,7 @@ public class Controller {
 
     /**
      * Permet d'afficher tous les joueurs depuis la BDD.
+     *
      * @throws NullPointerException
      */
     private void displayAllPlayers() throws NullPointerException {
@@ -135,6 +140,7 @@ public class Controller {
 
     /**
      * Permet de choisir un joueur existant et de joueur une partie avec lui. Lien avec la BDD.
+     *
      * @throws MauvaisChoixUtilisateur
      */
     private void chooseExistantPlayer() throws MauvaisChoixUtilisateur {
@@ -208,6 +214,7 @@ public class Controller {
 
     /**
      * Permet de jouer au jeu. Le joueur se déplace puis il y a une vérification de case tant que la partie n'est pas gagnée et tant que le joueur a encore des points de vie.
+     *
      * @param pPlayer joueur
      */
     private void playGame(Personnage pPlayer) {
@@ -229,6 +236,7 @@ public class Controller {
 
     /**
      * Permet de gérer la fin de partie. Méthode appelée une fois que le joueur est sur la case 63 et permet de recommencer une partie ou de quitter le jeu.
+     *
      * @throws SQLException
      * @throws PersonnageHorsPlateauException
      * @throws MauvaisChoixUtilisateur
@@ -254,6 +262,7 @@ public class Controller {
 
     /**
      * Permet de recommencer une partie.
+     *
      * @throws PersonnageHorsPlateauException
      * @throws SQLException
      * @throws MauvaisChoixUtilisateur
