@@ -2,12 +2,11 @@ package fr.lecampusnumerique.game.ennemis;
 
 import fr.lecampusnumerique.personnages.Guerrier;
 import fr.lecampusnumerique.personnages.Personnage;
-import fr.lecampusnumerique.game.iCell;
 
 /**
  * Classe Dragon héritant de la Classe Ennemi.
  */
-public class Orc extends Ennemi implements iCell {
+public class Orc extends Ennemi {
     public Orc() {
         super("Guénaël", 6, 10);
     }

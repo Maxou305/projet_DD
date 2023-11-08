@@ -18,8 +18,4 @@ public class Arme extends EquipementOffensif {
         return "Arme";
     }
 
-    @Override
-    public void accept(Personnage pPersonnage) {
-
-    }
 }

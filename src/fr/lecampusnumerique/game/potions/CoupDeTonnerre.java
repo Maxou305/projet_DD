@@ -5,24 +5,23 @@ import fr.lecampusnumerique.personnages.Personnage;
 /**
  * Classe PopoBig héritant de Potion
  */
-public class PopoBig extends Potion {
+public class CoupDeTonnerre extends Potion {
     /**
      * Constructeur de PopoMini faisant appel au super constructeur de Potion.
      */
-    public PopoBig() {
+    public CoupDeTonnerre() {
         super("BIG FAT POT", 5);
     }
 
     /**
      * Méthode permettant l'interaction avec le joueur (soin).
+     *
      * @param pPlayer joueur
      */
     @Override
     public void interaction(Personnage pPlayer) {
-        pPlayer.heal(value);
-        if (pPlayer.getLife() >= pPlayer.getHpMax()) {
-            pPlayer.setLife(pPlayer.getHpMax());
-        }
-        System.out.println("Vous avez trouvé une potion ! : \n" + this + "\nVotre vie est maintenant à " + pPlayer.getLife());
+        pPlayer.setBuff(true);
+        pPlayer.setStrength(pPlayer.getStrength()*2);
+        System.out.println("Wow incroyable puissance éternelle ! Ton attaque est doublée pendant un tour.");
     }
 }

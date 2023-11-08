@@ -2,7 +2,11 @@ package fr.lecampusnumerique.personnages;
 
 import fr.lecampusnumerique.equipements.defense.EquipementDefensif;
 import fr.lecampusnumerique.equipements.offense.EquipementOffensif;
+import fr.lecampusnumerique.equipements.offense.guerrier.Arc;
+import fr.lecampusnumerique.equipements.offense.magicien.Invisibilite;
+import fr.lecampusnumerique.game.ennemis.Dragon;
 import fr.lecampusnumerique.game.ennemis.Ennemi;
+import fr.lecampusnumerique.game.ennemis.MauvaisEsprit;
 
 /**
  * Classe Personnage en mode abstrait, ne sera pas instancié mais sera la Classe mère de Guerrier et Magicien. Contient toutes les informations liées au personnage.
@@ -17,6 +21,7 @@ public abstract class Personnage {
     private int position;
     private boolean exitFight = false;
     private boolean winFight = false;
+    private boolean buff = false;
     private EquipementOffensif offensive;
     private EquipementDefensif defensive;
 
@@ -31,10 +36,11 @@ public abstract class Personnage {
 
     /**
      * Constructeur de Personnage prenant 6 paramètres.
-     * @param pName name
-     * @param pLife life
-     * @param pStrength strength
-     * @param pHpMax hpMax
+     *
+     * @param pName      name
+     * @param pLife      life
+     * @param pStrength  strength
+     * @param pHpMax     hpMax
      * @param pOffensive offensive
      * @param pDefensive defensive
      */
@@ -64,7 +70,17 @@ public abstract class Personnage {
      * @param pEnnemi ennemi affronté
      */
     public void attack(Ennemi pEnnemi) {
-        pEnnemi.setLife(pEnnemi.getLife() - (strength + offensive.getValue()));
+        if (pEnnemi instanceof Dragon && offensive instanceof Arc) {
+            pEnnemi.setLife(pEnnemi.getLife() - (strength + offensive.getValue() + 2));
+        } else if (pEnnemi instanceof MauvaisEsprit && offensive instanceof Invisibilite) {
+            pEnnemi.setLife(pEnnemi.getLife() - (strength + offensive.getValue() + 3));
+        } else {
+            pEnnemi.setLife(pEnnemi.getLife() - (strength + offensive.getValue()));
+        }
+        if (isBuff()) {
+            strength /= 2;
+            buff = false;
+        }
     }
 
     /**
@@ -179,6 +195,22 @@ public abstract class Personnage {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setStartLife(int startLife) {
+        this.startLife = startLife;
+    }
+
+    public boolean isBuff() {
+        return buff;
+    }
+
+    public void setBuff(boolean buff) {
+        this.buff = buff;
     }
 
     @Override

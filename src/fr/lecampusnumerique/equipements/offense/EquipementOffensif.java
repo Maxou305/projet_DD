@@ -16,7 +16,8 @@ public abstract class EquipementOffensif implements iCell {
 
     /**
      * Constructeur de base de EquipementOffensif, prenant 2 paramètres.
-     * @param pName nom de l'arme
+     *
+     * @param pName  nom de l'arme
      * @param pValue valeur d'attaque de l'arme
      */
     protected EquipementOffensif(String pName, int pValue) {
@@ -42,6 +43,7 @@ public abstract class EquipementOffensif implements iCell {
 
     /**
      * Méthode prenant un paramètre pPlayer permettant au joueur de ramasser l'arme si son type le permet.
+     *
      * @param pPlayer joueur
      */
     public void interaction(Personnage pPlayer) {
@@ -52,8 +54,7 @@ public abstract class EquipementOffensif implements iCell {
             if (eventUser.nextInt() == 1) {
                 pPlayer.setOffensive(this);
                 System.out.println("Ca y est, c'est équipé");
-            }
-            else {
+            } else {
                 System.out.println("Ok ça marche.");
             }
         } else {
