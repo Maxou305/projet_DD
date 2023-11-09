@@ -11,6 +11,7 @@ public class ConnexionBDD {
 
     /**
      * Méthode permettant la connexion à la BDD.
+     *
      * @return true ou false selon si la BDD est connectée ou non
      */
     public boolean Connect() {
@@ -49,6 +50,7 @@ public class ConnexionBDD {
 
     /**
      * Permet de renvoyer un héros en fonction d'un ID choisi par l'utilisateur.
+     *
      * @param pUserChoice choix du héros sous forme d'int
      * @return ResultSet correspondant à un héros
      * @throws SQLException erreur renvoyée s'il y a eu un problème dans la requête SQL
@@ -68,22 +70,25 @@ public class ConnexionBDD {
 
     /**
      * Méthode permettant la sauvegarde du joueur dans la BDD
+     *
      * @param pPlayer joueur à sauvegarder
      * @throws SQLException erreur renvoyée si la requête SQL n'est pas passée
      */
     public void savePlayerInBDD(Personnage pPlayer) throws SQLException {
-        PreparedStatement stmt = conMyDB.prepareStatement("INSERT INTO `hero` (`type`, `name`, `life`, `strength`, `offensive`, `defensive`) VALUES (?, ?, ?, ?, ?, ?)");
+        PreparedStatement stmt = conMyDB.prepareStatement("INSERT INTO `hero` (`type`, `name`, `life`, `strength`, `offensive`, `defensive`, `position`) VALUES (?, ?, ?, ?, ?, ?, ?)");
         stmt.setString(1, pPlayer.getType());
         stmt.setString(2, pPlayer.getName());
         stmt.setInt(3, pPlayer.getLife());
         stmt.setInt(4, pPlayer.getStrength());
         stmt.setString(5, pPlayer.getOffensive().getName());
         stmt.setString(6, pPlayer.getDefensive().getName());
+        stmt.setInt(7, pPlayer.getPosition());
         stmt.executeUpdate();
     }
 
     /**
      * Méthode permettant de modifier dans la BDD le niveau de vie du joueur (non-utilisée pour le moment).
+     *
      * @param pPlayer joueur
      */
     public void changeLifePoints(Personnage pPlayer) {
